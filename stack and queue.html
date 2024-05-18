@@ -1,0 +1,368 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>栈与队列</title>
+    <link rel="stylesheet" href="styles.css">
+
+</head>
+<body>
+  <p>
+      栈与队列是两种重要的数据结构，它们都是线性结构，都是一种特殊的线性表，都是操作受限的线性表。
+      它们的区别在于：栈是一种后进先出的数据结构，而队列是一种先进先出的数据结构。<br><br>
+    一、栈<br>
+      栈是一种后进先出的数据结构，它的特点是：只能在一端进行插入和删除操作，这一端被称为栈顶，另一端被称为栈底。<br>
+      栈的插入操作称为入栈，也叫压栈，栈的删除操作称为出栈，也叫弹栈。<br>
+      栈的应用：函数调用、表达式求值、括号匹配等。<br><br>
+    二、队列<br>
+      队列是一种先进先出的数据结构，它的特点是：只能在一端进行插入操作，在另一端进行删除操作，这一端被称为队尾，另一端被称为队头。<br>
+      队列的插入操作称为入队，队列的删除操作称为出队。<br>
+      队列的应用：进程调度、打印队列、消息队列等。<br><br>
+    三、栈和队列的比较<br>
+    1.栈和队列都是操作受限的线性表，都是一种特殊的线性表。<br>
+    2.栈是后进先出的数据结构，队列是先进先出的数据结构。<br>
+    3.栈的插入和删除操作都在栈顶进行，队列的插入操作在队尾进行，删除操作在队头进行。<br>
+    4.栈的应用：函数调用、表达式求值、括号匹配等；队列的应用：进程调度、打印队列、消息队列等。<br>
+    5.栈和队列都可以用数组和链表来实现。<br><br>
+    四、栈和队列的实现<br>
+    1.栈的实现<br>
+    （1）栈的顺序存储：<br>
+    <img src="pictures\24-05-18_14-23-37.png" alt="栈的顺序存储">   <br> 
+      栈的顺序存储可以用数组来实现，栈顶指针top指向栈顶元素，栈顶指针的初始值为-1，表示栈为空。<br>
+      入栈操作：将元素压入栈顶，栈顶指针加1，将元素存入栈顶指针指向的位置。<br>
+      出栈操作：将栈顶元素弹出，栈顶指针减1，返回栈顶元素。<br>
+      代码实现如下：<br>
+    <pre><code>
+            #include<stdio.h>
+            #include<stdlib.h>
+            typedef int ElemType;//ElemType类型根据实际情况而定，
+            #define MAXSIZE 100
+            typedef int status;
+            #define OK 1
+            #define ERROR 0
+            typedef struct {
+                ElemType data[MAXSIZE];
+                int top;//用于栈顶指针
+            }sqstack;
+            status pushstack(sqstack* s, ElemType e)//进栈， 插入元素e为新的栈顶元素
+            {
+                if (s->top == MAXSIZE - 1)//若栈满
+                {
+                    return ERROR;
+                }
+                s->data[++s->top] = e;//栈顶指针加一，将新元素赋值给栈顶空间
+                return OK;
+            }
+            status popstack(sqstack* s, ElemType* e)//出栈 若栈不空，则删除S的栈顶元素，用e返回其值，并返回OK；否则返回ERROR
+            {
+                if (s->top == -1)
+                {
+                    return ERROR;
+                }
+                *e = s->data[s->top];//将要删除的栈顶元素赋值给e 
+                s->top--;// 栈顶指针减一
+                return OK;
+            }
+            status ClearStack(sqstack* s)// 将栈清空
+            {
+                s->top = -1;
+                return OK;
+            }
+            status GetTop(sqstack s, ElemType* e)//若栈存在且非空，用e返回S的栈顶元素
+            {
+                if (s.top == -1)
+                {
+                    return ERROR;
+                }
+                *e = s.data[s.top];
+                return OK;
+            }
+             int StackLength(sqstack s)//  返回栈S的元素个数。
+            {
+                 return s.top + 1;
+            }
+    </code></pre>
+
+    (2)两栈共享空间：<br>
+    <img src="pictures\24-05-18_14-25-46.png" alt="两栈共享空间"><br>
+      两栈共享空间可以用数组来实现，两个栈的栈底分别为数组的两端，两个栈的栈顶分别向中间延伸，当两个栈的栈顶指针相遇时，表示栈满。<br>
+      入栈操作：栈1的栈顶指针加1，将元素存入栈1的栈顶指针指向的位置;栈2的栈顶指针减1，将元素存入栈2的栈顶指针指向的位置。<br>
+      出栈操作：栈1的栈顶指针减1，返回栈1的栈顶元素;栈2的栈顶指针加1，返回栈2的栈顶元素。<br>
+      代码实现如下：<br>
+    <pre><code>
+            #include<stdio.h>
+            #include<stdlib.h>
+            typedef int ElemType;
+            #define MAXSIZE 100
+            typedef int status;
+            #define OK 1
+            #define ERROR 0
+            typedef struct {
+                ElemType data[MAXSIZE];
+                int top1;//栈1栈顶指针
+                int top2;//栈2栈顶指针
+            }sqDoubleStack;
+            status pushstack(sqDoubleStack* s, ElemType e, int stackNumber)//插入元素e到栈stackNumber
+            {
+                if (s->top1 + 1 == s->top2)//栈已满不能在插入新元素
+                {
+                    return ERROR;
+                }
+                if (stackNumber == 1)//栈1元素进栈
+                {
+                    s->data[++s->top1] = e;//top1加1后给数组赋值
+                }
+                else if (stackNumber == 2)//栈2元素进栈
+                {
+                    s->data[--s->top2] = e;//top2减1后给数组元素赋值
+                }
+                return OK;
+            }
+            status popstack(sqDoubleStack* s, ElemType* e, int stackNumber)/* 若栈不空，则删除S的栈顶元素，用e返回其值，并返回OK；否则返回ERROR */
+            {
+                if (stackNumber == 1)
+                {
+                    if (s->top1 == -1)//栈1是空栈返回ERROR
+                        return ERROR;
+                    *e = s->data[s->top1--];//将栈1元素出栈
+                }
+                else if (stackNumber == 2)
+                {
+                    if (s->top2 == MAXSIZE)//栈2空栈
+                        return ERROR;
+                    *e = s->data[s->top2++];//将栈2元素出栈
+                }
+                else
+                    return ERROR;
+                return OK;
+            }
+    </code></pre>
+      两栈共享空间的缺点是：两个栈的空间不能灵活分配，当一个栈的元素很多时，另一个栈的空间就会很小，造成空间的浪费。<br>
+
+    （3）栈的链式存储：<br>
+    <img src="pictures\24-05-18_15-08-16.png" alt="栈的链式存储"><br>
+      栈的链式存储可以用单链表来实现，栈顶指针top指向栈顶元素，栈顶指针的初始值为NULL，表示栈为空。<br>
+      入栈操作：将元素插入到链表的头部，栈顶指针指向新的栈顶元素。<br>
+      出栈操作：将链表的头部元素删除，栈顶指针指向新的栈顶元素，返回删除的元素。<br>
+      代码实现如下：<br>
+    <pre><code>
+#include<stdio.h>
+#include<stdlib.h>
+typedef int ElemType;
+#define MAXSIZE 100
+typedef int status;
+#define OK 1
+#define ERROR 0
+typedef struct StackNode {//栈节点结构
+	ElemType data;
+	struct StackNode* next;//指向下一个栈节点
+}StackNode, * LinkStackPtr;
+typedef struct LinKStack {//管理整个栈
+	LinkStackPtr top;//栈顶指针
+	int count;//
+}LinkStack;
+status Initstack(LinkStack* l)//初始化栈
+{
+	if (!l)
+	{
+		return ERROR;
+	}
+	l->top = NULL;
+	l->count = 0;
+	return OK;
+}
+
+status Pushstack(LinkStack* l, ElemType e) /* 插入元素e为新的栈顶元素 */
+{
+	LinkStackPtr s = (LinkStackPtr)malloc(sizeof(StackNode));
+	if (!s) {
+		return ERROR;
+	}
+	s->data = e; /*把当前的栈顶元素赋值给新结点的直接后继*/
+	s->next = l->top;
+	l->top = s; /*将新的结点s赋值给栈顶指针 */
+	l->count++;
+	return OK;
+}
+status Popstack(LinkStack* l, ElemType* e) /* 若栈不空，则删除S的栈顶元素，用e返回其值，并返回OK；否则返回ERROR */
+{
+	LinkStackPtr p;
+	if (l->count<1)
+	{
+		return ERROR;
+	}
+	*e = l->top->data;
+	p = l->top;
+	l->top = p->next;
+	free(p);  /*释放结点p */
+	l->count--;
+	return OK;
+}
+    </code></pre>
+
+
+    2.队列的实现<br>
+    （1）队列的顺序存储：<br>
+    <img src="pictures\184071642-b49b9041-1afd-4ca7-8ea5-6eeeff7c923d.png" alt="队列的顺序存储"><br>
+      队列的顺序存储可以用数组来实现，队头指针front指向队头元素，队尾指针rear指向队尾元素，队头指针的初始值为0，队尾指针的初始值为-1，表示队列为空。<br>
+      入队操作：将元素插入到队尾，队尾指针加1，将元素存入队尾指针指向的位置。<br>
+      出队操作：将队头元素删除，队头指针加1，返回删除的元素。<br>
+      为解决假溢出引入循环队列：当队尾指针指向数组的最后一个元素时，再入队时，队尾指针指向数组的第一个元素，当队头指针指向数组的最后一个元素时，再出队时，队头指针指向数组的第一个元素。<br>
+      队列的长度：队列的长度等于队尾指针减去队头指针加1，当队尾指针小于队头指针时，队列的长度等于队尾指针加上数组的长度减去队头指针加1。<br>
+      计算队列从长度的公式：(rear-front+maxsize)%maxsize<br>
+      代码实现如下：<br>
+    <pre><code>
+            #include<stdio.h>
+            typedef int ElemType;/* QElemType类型根据实际情况而定，这里假设为int */
+            typedef int status;
+            #define OK 1
+            #define ERROR 0
+            #define MAXSIZE 100
+            typedef struct {
+                ElemType data[MAXSIZE-1];
+                int front;/* 头指针 */
+                int rear;/*尾指针，若队列不空,指向队列尾元素的下一个位置 */
+            }Squenue;
+            status InitQueue(Squenue* Q)/* 初始化一个空队列Q */
+            {
+                Q->front = 0;
+                Q->rear = 0;  
+                return OK;
+            }
+            int QuenueLength(Squenue Q)/* 返回Q的元素个数，也就是队列的当前长度 */
+            {
+                return (Q.rear - Q.front + MAXSIZE) % MAXSIZE;
+            }
+            status Enquenue(Squenue* Q, ElemType e)/* 若队列未满，则插入元素e为Q新的队尾元素 */
+            {
+                if ((Q->rear+1)%MAXSIZE==Q->front)
+                {
+                    return ERROR;
+                }
+                Q->data[Q->rear] = e; /*将元素e赋值给队尾 */
+                Q->rear = (Q->rear + 1) % MAXSIZE; /* rear指针向后移一位置， */
+                return OK;
+            }
+            status Dequenue(Squenue* Q, ElemType* e)/* 若队列不空，则删除Q中队头元素，用e返回其值 */
+            {
+                if (Q->front == Q->rear) /*队列空的判断 */
+                {
+                    return ERROR;
+                }
+                *e = Q->data[Q->front]; /*将队头元素赋值给e */
+                Q->front = (Q->front + 1) % MAXSIZE; /* front指针向后移一位置， 若到最后则转到数组头部 */
+                return OK;
+            }
+            
+        </code></pre>
+
+
+    （2）队列的链式存储：<br>
+    <img src="pictures\1704980-20191220090600323-1948413645.png" alt="队列的链式存储"><br>
+      队列的链式存储可以用单链表来实现，队头指针front指向队头元素，队尾指针rear指向队尾元素，队头指针的初始值为NULL，队尾指针的初始值为NULL，表示队列为空。<br>
+      入队操作：将元素插入到链表的尾部，队尾指针指向新的队尾元素。<br>
+      出队操作：将链表的头部元素删除，队头指针指向新的队头元素，返回删除的元素。<br>
+      队列头节点作用：带头结点的链队的入队操作，只要把新生成的结点加到尾结点后即可。而不带头结点的操作则还要注意到边界操作，假如是第一次入队，需修改队头指针。
+      代码实现如下：<br>
+      <pre><code>
+            #include<stdio.h>
+            typedef int ElemType;/* QElemType类型根据实际情况而定，这里假设为int */
+            typedef int status;
+            #define OK 1
+            #define ERROR 0
+            #define MAXSIZE 100
+            #include<stdlib.h>
+            typedef struct Qnode {/* 结点结构 */
+                ElemType data;
+                struct Qnode* next;
+            }Qnode,*Qnodeptr;
+            typedef struct { /* 队列的链表结构 */
+                Qnodeptr front, rear; /*队头、队尾指针 */
+            }Linkquenue;
+            status Enquenue(Linkquenue* q, ElemType e)/* 插入元素e为Q的新的队尾元素 */
+            {
+                Qnodeptr s = (Qnodeptr)malloc(sizeof(Qnode));
+                if (!s) {  /*存储分配失败 */
+                    return ERROR;
+                }
+                s->data = e;
+                s->next = NULL;
+                q->rear->next = s; /*把拥有元素e新结点s赋值给原队尾结点的后继， */
+                q->rear = s; /*把当前的s设置为队尾结点，rear指向s，见上图中② */
+                q->front->data++;//头节点数值代表队列长度
+                return OK;
+            }
+            status Dequenue(Linkquenue* q, ElemType *e)/* 若队列不空，删除Q的队头元素，用e返回其值，并返回OK，否则返回ERROR */
+            {
+                Qnodeptr p;
+                if (q->front == q->rear)
+                {
+                    return ERROR;
+                }
+                p = q->front->next; /*将欲删除的队头结点暂存给p，见上图中① */
+            
+                *e = p->data;
+                q->front->next = p->next;
+                if (q->rear == p) /*若队头是队尾，则删除后将rear指向头结点，见上图中*/
+                {
+                    q->rear = q->front;
+                }
+                free(p);
+                q->front->data--;//头节点数值代表队列长度
+                return OK;
+            }
+            
+            status Initquenu(Linkquenue* q)//初始化队列
+            {
+                q->front = (Qnodeptr)malloc(sizeof(Qnode));
+                if (!q->front)
+                {
+                    return ERROR;
+                }
+                q->front->data = 0;//初始化队列长度为0
+                q->front->next = NULL;
+                q->rear = q->front;
+                return OK;
+            }
+            
+            int QuenueLength(Linkquenue q)/* 返回队列的元素个数，也就是队列的当前长度 */
+            {
+                return q.front->data;
+            }
+            
+            status Clearquenue(Linkquenue* q)//清除整个队列
+            {
+                Qnodeptr a;
+                Qnodeptr p = q->front->next;
+                while (p != q->rear)
+                {
+                    a = p->next;
+                    free(p);
+                    p = a;
+                    q->front->data--;
+                }
+                free(p);
+                q->front->data--;
+                q->front->next = NULL;
+                q->rear = q->front;
+                return OK;
+            }
+            
+      </code></pre>
+    五、栈和队列的应用<br>
+    1.栈的应用：<br>
+    （1）函数调用：函数调用时，系统会为每个函数分配一块内存空间，这些内存空间就是栈，函数调用结束后，系统会自动释放这些内存空间，这就是栈的后进先出特性。<br>
+    （2）表达式求值：表达式求值时，需要用到栈来保存运算符和操作数，栈的后进先出特性可以保证运算符的优先级。<br>
+    （3）括号匹配：括号匹配时，可以用栈来保存左括号，遇到右括号时，从栈中弹出一个左括号，如果匹配成功，则继续，否则匹配失败。<br>
+    2.队列的应用：<br>
+    （1）进程调度：进程调度时，可以用队列来保存就绪队列，每次从队头取出一个进程执行，执行完毕后，再将进程放入队尾。<br>
+    （2）打印队列：打印队列时，可以用队列来保存打印任务，每次从队头取出一个任务打印，打印完毕后，再将任务放入队尾。<br>
+    （3）消息队列：消息队列时，可以用队列来保存消息，每次从队头取出一个消息处理，处理完毕后，再将消息放入队尾。<br><br>
+    六、总结<br>
+      栈和队列都是重要的数据结构，它们都是操作受限的线性表，都是一种特殊的线性表，都可以用数组和链表来实现，它们的区别在于：栈是后进先出的数据结构，队列是先进先出的数据结构。<br><br>
+    七、参考资料<br>
+    《大话数据结构》<br>
+    
+  </p>  
+</body>
+</html>
