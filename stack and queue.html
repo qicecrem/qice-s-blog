@@ -3,7 +3,21 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>栈与队列</title>
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.25.0/themes/prism.min.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.25.0/prism.min.js"></script>
+    <style>
+        /* 自定义样式可以在这里添加 */
+        pre {
+            background-color: #f4f4f4;
+            padding: 10px;
+            border: 1px solid #ccc;
+            overflow: auto;
+        }
+
+        code {
+            font-family: monospace;
+        }
+    </style>
 
 </head>
 <body>
@@ -32,7 +46,7 @@
       入栈操作：将元素压入栈顶，栈顶指针加1，将元素存入栈顶指针指向的位置。<br>
       出栈操作：将栈顶元素弹出，栈顶指针减1，返回栈顶元素。<br>
       代码实现如下：<br>
-    <pre><code>
+    <pre><code class="language-c" >
             #include<stdio.h>
             #include<stdlib.h>
             typedef int ElemType;//ElemType类型根据实际情况而定，
@@ -89,7 +103,7 @@
       入栈操作：栈1的栈顶指针加1，将元素存入栈1的栈顶指针指向的位置;栈2的栈顶指针减1，将元素存入栈2的栈顶指针指向的位置。<br>
       出栈操作：栈1的栈顶指针减1，返回栈1的栈顶元素;栈2的栈顶指针加1，返回栈2的栈顶元素。<br>
       代码实现如下：<br>
-    <pre><code>
+    <pre><code class="language-c">
             #include<stdio.h>
             #include<stdlib.h>
             typedef int ElemType;
@@ -145,7 +159,7 @@
       入栈操作：将元素插入到链表的头部，栈顶指针指向新的栈顶元素。<br>
       出栈操作：将链表的头部元素删除，栈顶指针指向新的栈顶元素，返回删除的元素。<br>
       代码实现如下：<br>
-    <pre><code>
+    <pre><code class="language-c">
 #include<stdio.h>
 #include<stdlib.h>
 typedef int ElemType;
@@ -211,7 +225,7 @@ status Popstack(LinkStack* l, ElemType* e) /* 若栈不空，则删除S的栈顶
       队列的长度：队列的长度等于队尾指针减去队头指针加1，当队尾指针小于队头指针时，队列的长度等于队尾指针加上数组的长度减去队头指针加1。<br>
       计算队列从长度的公式：(rear-front+maxsize)%maxsize<br>
       代码实现如下：<br>
-    <pre><code>
+    <pre><code class="language-c">
             #include<stdio.h>
             typedef int ElemType;/* QElemType类型根据实际情况而定，这里假设为int */
             typedef int status;
@@ -264,7 +278,7 @@ status Popstack(LinkStack* l, ElemType* e) /* 若栈不空，则删除S的栈顶
       出队操作：将链表的头部元素删除，队头指针指向新的队头元素，返回删除的元素。<br>
       队列头节点作用：带头结点的链队的入队操作，只要把新生成的结点加到尾结点后即可。而不带头结点的操作则还要注意到边界操作，假如是第一次入队，需修改队头指针。
       代码实现如下：<br>
-      <pre><code>
+      <pre><code class="language-c">
             #include<stdio.h>
             typedef int ElemType;/* QElemType类型根据实际情况而定，这里假设为int */
             typedef int status;
