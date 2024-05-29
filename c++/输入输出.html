@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>c++</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.25.0/themes/prism.min.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.25.0/prism.min.js"></script>
+    <style>
+        /* 自定义样式可以在这里添加 */
+        pre {
+            background-color: #f4f4f4;
+            padding: 10px;
+            border: 1px solid #ccc;
+            overflow: auto;
+        }
+
+        code {
+            font-family: monospace;
+        }
+    </style>
+</head>
+
+<body>
+<p>1.输出：cout<<<br>
+    2.输入：cin>><br>
+    3.cout.get(字符变量名)：用于从键盘读取一个字符<br>
+    4.cin.get(字符变量名)：用于从键盘读取一个字符 <br>
+    5.cout.get(字符变量名,字符数)：用于从键盘读取指定个数的字符<br>
+    6.cin.get(字符变量名,字符数)：用于从键盘读取指定个数的字符<br>
+    7.cout.getline(字符变量名,字符数)：用于从键盘读取一行字符<br>
+    8.cout.setf(格式控制符)：用于设置输出格式<br>
+    常用的格式标志符：<br>
+    std::ios::boolalpha: 将布尔值显示为 true 或 false。<br>
+    std::ios::showbase: 显示整数值的基数前缀（例如十六进制的 0x，八进制的 0）。<br>
+    std::ios::showpoint: 始终显示浮点数的小数点。<br>
+    std::ios::showpos: 对正数显示 + 号。<br>
+    std::ios::uppercase: 使用大写字母表示十六进制数字和科学记数法。<br>
+    std::ios::hex: 将数值设为十六进制格式。<br>
+    std::ios::oct: 将数值设为八进制格式。<br>
+    std::ios::dec: 将数值设为十进制格式。<br>
+    std::ios::fixed: 使用定点记数法表示浮点数。<br>
+    std::ios::scientific: 使用科学记数法表示浮点数。<br>
+    std::cout.setf(std::ios::left, std::ios::adjustfield);左对齐<br>
+    实例：<br>
+    <pre><code class="language-c">
+        #include <iostream>
+
+            int main() {
+                int number = 255;
+            
+                // 设置十六进制格式、基数前缀和大写字母
+                std::cout.setf(std::ios::hex, std::ios::basefield);
+                std::cout.setf(std::ios::showbase);
+                std::cout.setf(std::ios::uppercase);
+            
+                std::cout << "十六进制: " << number << std::endl;  // 输出: 0XFF
+            
+                // 取消大写字母标志
+                std::cout.unsetf(std::ios::uppercase);
+            
+                std::cout << "十六进制（无大写）: " << number << std::endl;  // 输出: 0xff
+            
+                // 重置为十进制格式
+                std::cout.setf(std::ios::dec, std::ios::basefield);
+            
+                std::cout << "十进制: " << number << std::endl;  // 输出: 255
+            
+                return 0;
+            }
+            
+    </code></pre><br>
+    9.cout.unsetf(格式控制符)：用于取消输出格式<br> 
+10.输入输出流的格式控制：<br>
+    (1).设置精度：cout.precision(n)：用于设置浮点数的精度，n为精度值<br>
+    <pre><code>
+        #include <iostream>
+        int main() {
+            std::cout.precision(3);
+            std::cout << 123.456789 << std::endl;
+            return 0;
+        }
+        </code></pre>
+    (2).设置宽度：cout.width(n)：用于设置输出宽度，n为宽度值<br>
+    <pre><code>
+        #include <iostream>
+
+            int main() {
+                std::cout.width(10);
+                std::cout << 123 << std::endl;
+                return 0;
+            }
+            
+    </code></pre>
+    (3).设置填充字符：cout.fill(字符)：用于设置输出填充字符<br>
+    <pre><code>
+        #include <iostream>
+
+            int main() {
+                std::cout.fill('*');
+                std::cout.width(10);
+                std::cout << 123 << std::endl;
+                return 0;
+            }
+            
+    </code></pre><br>
+
+
+</p>
+</body>
+
+</html>

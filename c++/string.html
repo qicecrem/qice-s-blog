@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>string</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.25.0/themes/prism.min.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.25.0/prism.min.js"></script>
+    <style>
+        /* 自定义样式可以在这里添加 */
+        pre {
+            background-color: #f4f4f4;
+            padding: 10px;
+            border: 1px solid #ccc;
+            overflow: auto;
+        }
+
+        code {
+            font-family: monospace;
+        }
+    </style>
+</head>
+
+<body>
+    
+
+
+<p>
+    1.获取字符串长度：<br>
+    <pre><code>size_t len=str1.length();//返回字符串长度</code></pre><br>
+    2.字符串拼接：<br>
+    <pre><code>str1.append(str2);//将str2拼接到str1后面</code></pre><br>
+    3.字符串比较：<br>
+    <pre><code>str1.compare(str2);//比较str1和str2的大小，相等返回0，str1大返回1，str2大返回-1</code></pre><br>
+    4.字符串查找：<br>
+    <pre><code>str1.find(str2);//在str1中查找str2，返回str2在str1中第一次出现的位置，如果没有找到返回string::npos</code></pre><br>
+    5.字符串替换：<br>
+    <pre><code>str1.replace(pos,len,str2);//从pos位置开始，替换长度为len的字符串为str2</code></pre><br>
+    6.字符串截取：<br>
+    <pre><code>str1.substr(pos,len);//从pos位置开始，截取长度为len的字符串</code></pre><br>
+    7.字符串插入：<br>
+    <pre><code>str1.insert(pos,str2);//在pos位置插入str2</code></pre><br>
+    8.字符串删除：<br>
+    <pre><code>str1.erase(pos,len);//从pos位置开始，删除长度为len的字符串</code></pre><br>
+    9.字符串反转：<br>
+    <pre><code>reverse(str1.begin(),str1.end());//将str1反转</code></pre><br>
+    10.字符串转换：<br>
+    <pre><code>stoi(str1);//将str1转换为int类型</code></pre><br>
+    <pre><code>stol(str1);//将str1转换为long类型</code></pre><br>
+    <pre><code>stof(str1);//将str1转换为float类型</code></pre><br>
+    <pre><code>stod(str1);//将str1转换为double类型</code></pre><br>
+    <pre><code>to_string(num);//将num转换为string类型</code></pre><br>
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</p>
+</body>
+</html>

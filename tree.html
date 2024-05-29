@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>树</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.25.0/themes/prism.min.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.25.0/prism.min.js"></script>
+    <style>
+        /* 自定义样式可以在这里添加 */
+        pre {
+            background-color: #f4f4f4;
+            padding: 10px;
+            border: 1px solid #ccc;
+            overflow: auto;
+        }
+
+        code {
+            font-family: monospace;
+        }
+    </style>
+</head>
+
+<body>
+<p>树的基本概念<br>
+    <img src="pictures\24-05-25_23-28-54.png" alt="树的基本概念"  width="600"><br>
+    树是一种非线性的数据结构，它是由n（n>=1）个有限节点组成一个具有层次关系的集合。把它叫做“树”是因为它看起来像一棵倒挂的树，也就是说它是根朝上，而叶朝下的。<br>
+    1.树的节点：树的每个节点都有一个数据项和若干指向其子树的分支，节点拥有的子树数称为节点的度。<br>
+    2.树的根节点：树的顶端节点称为根节点，根节点没有父节点。<br>
+    3.树的叶节点：树的末端节点称为叶节点，叶节点没有子节点。<br>
+    4.树的分支节点：除了根节点和叶节点之外的节点称为分支节点。<br>
+    5.树的深度：树的深度是从根节点到叶节点的最长路径的节点数。<br>
+    6.树的高度：树的高度是从叶节点到根节点的最长路径的节点数。<br>
+    7.节点的度：节点的度是指节点拥有的子树数。<br>
+    8.树的层次：树的层次是从根节点开始，根节点为第一层，根的子节点为第二层，以此类推。<br>
+    9.树的子树：树的子树是由树中的某个节点和它的子节点组成的树。<br>
+    10.树的森林：树的森林是由m（m>=0）棵互不相交的树的集合组成。<br>
+    11.树的路径：树的路径是从一个节点到另一个节点的通路，通路上的节点的顺序就是路径的顺序。<br>
+    12.树的孩子：树的孩子是指树中某个节点的子树。<br>
+    13.树的兄弟：树的兄弟是指树中同一层的节点。<br>
+    14.树的祖先：树的祖先是指从根节点到该节点所经分支上的所有节点。<br>
+    15.树的子孙：树的子孙是指某个节点的所有子树。<br>
+    16.树的前驱：树的前驱是指某个节点的前一个节点。<br>
+    17.树的后继：树的后继是指某个节点的后一个节点。<br>
+    18.树的有序树：树中的节点的子节点从左到右是有顺序的，这种树称为有序树。<br>
+    19.树的无序树：树中的节点的子节点从左到右是无顺序的，这种树称为无序树。<br>
+    20.除了根节点之外，每个节点都有且只有一个父节点。<br></p>
+    <p>树的性质<br>
+    1.树中的节点数等于总度数加1。<br>
+    2.m叉树：每个节点最多有m个子树的树称为m叉树。<br>
+    3.度为m的树中第i层上至多有m^(i-1)个节点。<br>
+    4.高度为h的m叉树至多有(m^h-1)/(m-1)个节点。<br>
+    5.高度为h的m叉树至少有h个节点。<br>
+    6.高度为h，度为m的树至少有h+m-1个节点。<br>
+    <img src="pictures\24-05-26_21-39-05.png" alt="树的性质"  width="600"><br>
+    7.具有n个节点的m叉树的最小高度为logm(n(m-1)+1)。<br>
+    </p>
+<p>二叉树
+    1.二叉树的定义：二叉树是一种特殊的树，它的每个节点至多有两个子树，这两个子树分别称为左子树和右子树。<br>
+    2.二叉树的特点：二叉树的每个节点至多有两个子树，二叉树的子树有左右之分，次序不能颠倒。<br>
+    3.满二叉树：一棵深度为k，且有2^k-1个节点的二叉树称为满二叉树。<br>
+    4.完全二叉树：一棵深度为k，有n个节点的二叉树，当且仅当其每一个节点都与深度为k的满二叉树中编号从1至n的节点一一对应时，称为完全二叉树。<br>
+    5.二叉排序树：二叉排序树又称二叉查找树，它或者是一棵空树，或者是具有下列性质的二叉树：<br>
+    （1）若它的左子树不空，则左子树上所有节点的值均小于它的根节点的值；<br>
+    （2）若它的右子树不空，则右子树上所有节点的值均大于它的根节点的值；<br>
+    （3）它的左右子树也分别为二叉排序树。<br>
+    6.平衡二叉树：树上任一结点的左子树和右子树的深度之差不超过1.<br>
+
+</p>
+
+<p>二叉树的性质
+    1.在二叉树的第i层上至多有2^(i-1)个节点。<br>
+    2.深度为k的二叉树至多有2^k-1个节点。<br>
+    3.对任何一棵二叉树T，如果其终端节点数为n0，度为2的节点数为n2，则n0=n2+1。<br>
+    4.具有n个节点的完全二叉树的深度为log2(n+1)。<br>
+    5.具有n个节点的完全二叉树的第i个节点的左孩子为第2i个节点，右孩子为第2i+1个节点。<br>
+    6.具有n个节点的完全二叉树的第i个节点的父节点为第i/2个节点。<br>
+   
+</p>
+<p>二叉树的存储结构<br>
+    1.顺序存储结构：顺序存储结构是用一维数组存储二叉树中的节点，并且节点的存储位置和它在二叉树中的位置相对应。因为存在对存储空间的浪费，所以顺序存储结构一般只用于完全二叉树<br>
+    2.链式存储结构：链式存储结构是用链表存储二叉树中的节点，每个节点有三个域，分别是数据域、左指针域和右指针域。<br>
+    链式二叉树代码实现：<br>
+    <pre><code class="language-c" >
+        #include<stdio.h>
+            #include<stdlib.h>
+            typedef int  ElemType;
+            typedef struct BiTNode {/* 二叉树的二叉链表结点结构定义 */
+                ElemType data;  /*结点数据 */
+                struct BiTNode* lchild, * rchild;  /*左右孩子指针 */
+            }BiTNode,*BiTree;
+            
+            BiTree Inset(BiTree root, ElemType data)//在二叉树中插入节点
+            {
+                if (root == NULL)// 如果根节点为空，创建一个新的节点并返回
+                {
+                    BiTree newnode = (BiTree)malloc(sizeof(BiTNode));
+                    newnode->data = data;
+                    newnode->lchild = NULL;
+                    newnode->rchild = NULL;
+                    return newnode;
+                }
+                if (data < root->data)// 如果数据小于当前节点的数据，递归插入到左子树
+                    root->lchild = Insert(root->lchild, data);
+                else // 如果数据大于或等于当前节点的数据，递归插入到右子树
+                    root->rchild = Insert(root->rchild, data);
+                return root; // 返回（可能更新过的）根节点
+            }
+            BiTree delete(BiTree root, int data)// 从二叉树中删除节点
+            {
+                if (root == NULL) // 如果树为空，直接返回 NULL
+                    return NULL;
+                if (data < root->data) // 如果要删除的数据小于当前节点的数据，递归在左子树中删除
+                    root->lchild = delete(root->lchild, data);
+                else if (data > root->data) // 如果要删除的数据大于当前节点的数据，递归在右子树中删除
+                    root->rchild = delete(root->rchild, data);
+                else
+                {
+                    // 找到要删除的节点
+                    // 如果节点没有左子树，用右子树代替当前节点
+                    if (root->lchild = NULL)
+                    {
+                        BiTree temp = root->rchild;
+                        free(root);
+                        return temp;
+                    }// 如果节点没有右子树，用左子树代替当前节点
+                    else if (root->rchild == NULL)
+                    {
+                        BiTree temp = root->lchild;
+                        free(root);
+                        return temp;
+                    }
+                    //当要删除的节点有两个子节点时，我们不能直接删除这个节点。相反，我们找到右子树中最小的节点，将其值复制到当前节点，然后删除右子树中的最小值节点。这种方法保持了二叉搜索树的性质，即对于每个节点，其左子树的所有节点值小于该节点值，右子树的所有节点值大于该节点值。
+                    BiTree temp = root->rchild;
+                    while (temp->lchild != NULL)//找到右子树中最小值
+                    {
+                        temp = temp->lchild;
+                    }
+                    root->data = temp->data; // 将最小值节点的数据复制到当前节点
+                    root->rchild = delete(root->rchild, temp->data); // 在右子树中递归删除最小值节点
+                }
+                return root;
+            }
+
+    </code></pre>
+</p>
+<p>
+    二叉树的遍历<br>
+    1.前序遍历：先访问根节点，然后前序遍历左子树，最后前序遍历右子树。<br>
+    2.中序遍历：先中序遍历左子树，然后访问根节点，最后中序遍历右子树。<br>
+    3.后序遍历：先后序遍历左子树，然后后序遍历右子树，最后访问根节点。<br>
+    4.层次遍历：从上到下，从左到右依次访问每个节点。<br>
+
+    代码实现：<br>
+    <pre><code class="language-c" >
+        /* 二叉树的前序遍历递归算法 */
+        void PreOrderTraverse(BiTree T)
+        {
+            if (T == NULL)
+                return;
+            printf("%c", T->data);   /*显示结点数据，可以更改为其他对结点操作 */
+            PreOrderTraverse(T->lchild);  /*再先序遍历左子树 */
+            PreOrderTraverse(T->rchild);  /*最后先序遍历右子树 */
+        }
+
+     </code></pre>
+
+
+
+
+
+
+</p>
+
+</body>
+
+</html>
