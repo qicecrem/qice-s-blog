@@ -1,0 +1,15 @@
+tcpdump 是一个强大的网络数据包捕获工具。以下是一些常见的 tcpdump 使用方法和选项，帮助你更有效地监控和分析网络流量
+捕获所有通过指定接口的流量：sudo tcpdump -i eth0
+捕获端口 80 (HTTP) 的流量：sudo tcpdump -i eth0 port 80
+捕获 DNS (端口 53) 的流量：sudo tcpdump -i eth0 port 53
+显示 IP 地址而不是主机名:sudo tcpdump -n
+指定捕获包的大小:
+默认情况下，tcpdump 只捕获每个数据包的前 96 字节。你可以用 -s 选项来增加捕获的大小。例如，捕获每个数据包的前 500 字节：
+sudo tcpdump -i eth0 -s 500
+使用 -v、-vv 或 -vvv 来增加详细信息级别：sudo tcpdump -i ens33 -vv
+将捕获的数据包保存到文件:sudo tcpdump -i ens33 -w capture.pcap
+从文件读取数据包:sudo tcpdump -r capture.pcap
+捕获与特定 IP 地址相关的流量：sudo tcpdump -i ens33 host 192.168.1.1
+捕获包含特定字符串的数据包:sudo tcpdump -A -i ens33 | grep "specific_string"
+捕获特定协议的数据包：sudo tcpdump -i ens33 icmp
+
