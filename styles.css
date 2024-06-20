@@ -1,24 +1,19 @@
 
-body{
-    margin :0;
-    background:white;
-    
-    
-}
 img{max-width: auto;max-height:auto;}
 
-code {
-    color: black; /* 将文字颜色设置为黑色，与白色背景对比明显 */
+pre {
+    background-color: #f4f4f4;
+    padding: 10px;
     border: 1px solid #ccc;
-    padding: 10px; /* 保持与 <pre> 元素的内边距一致 */
-    display: inline-block;
-    background-color: white; /* 将背景色设置为白色 */
+    overflow: auto;
 }
 
-pre {
-    border: 1px solid #ccc;
-    padding: 10px;
-    background-color: #f9f9f9;
-    overflow-x: auto;
+code {
+    font-family: monospace;
 }
-  
+
+body{
+    margin-left: 30px;
+    margin-right: 20px;
+
+}

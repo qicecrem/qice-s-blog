@@ -54,12 +54,37 @@
 5.接收端接收到所有分片后，根据标识字段和片偏移字段将分片重组为原始数据报。<br>
 <img src="picture\24-06-05_09-42-29.png" alt="IP分片" > <br>
 </p>
-<p>IP 模块工作流程<br>
+<p>2.4.1 IP 模块工作流程<br>
 <img src="picture\24-06-05_09-54-24.png" alt="IP 模块工作流程">
-
 </p>
+<p>2.4.2 路由机制<br>
+<img src="picture\24-06-05_19-25-19.png" alt="路由机制"> <br>
+<img src="picture\24-06-05_19-25-44.png" alt="路由机制"> <br>
+</p>
+<p>2.5 IP转发<br>
+修改使用主机的数据报转发功能：echo 1 > /proc/sys/net/ipv4/ip_forward<br>
+</p>
+<p>2.6.1 ICMP重定向报文<br>
+<img src="picture\24-06-05_19-36-51.png" alt="ICMP重定向报文"> <br>
+工作原理
+发送数据包：主机发送一个数据包到目标，通过默认网关（路由器A）。
+路由检查：路由器A接收到数据包后，检查路由表，发现有更优的路径通过另一路由器B到达目标。
+转发数据包：路由器A将数据包转发给路由器B。
+发送ICMP重定向：路由器A向发送主机发送一个ICMP重定向报文，告知主机以后应将相应的数据包直接发送到路由器B。
+ICMP 重定向报文格式
+ICMP 重定向报文的结构包括以下字段：
 
-
+类型（Type）: 固定值为 5，表示这是一个重定向报文。
+代码（Code）: 表示重定向的原因，有四种可能值：
+0: 重定向网络（Redirect Datagram for the Network）
+1: 重定向主机（Redirect Datagram for the Host）
+2: 重定向服务和网络（Redirect Datagram for the Type of Service and Network）
+3: 重定向服务和主机（Redirect Datagram for the Type of Service and Host）
+校验和（Checksum）: 用于错误检测。
+网关地址（Gateway IP Address）: 指示新的路由器地址，主机应将数据包发送到此地址。
+原始 IP 头部和前 8 字节的数据: 包含原始数据包的 IP 头部和前 8 字节的数据，以便主机识别出该数据包。
+</p>
+ 
 
 
 
