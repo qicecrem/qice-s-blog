@@ -1,0 +1,10 @@
+打开命令行界面（终端）：ctrl+alt+t
+ip link：显示网络接口的链接状态
+ip addr：显示网络接口的详细信息
+cd .. 返回上级目录
+cd / 返回根目录
+安装软件：sudo apt-get install 软件名
+安装deb包：sudo dpkg -i 软件名.deb
+
+
+
