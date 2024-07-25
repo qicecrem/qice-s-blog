@@ -1,0 +1,9 @@
+1.对Linux：（1）启动SSH服务：sudo systemctl start ssh
+                                               sudo systemctl enable ssh
+                  （2）确认防火墙允许 SSH 连接：sudo ufw allow ssh
+                       
+                  （3）重新启动 SSH 服务：sudo systemctl restart ssh
+2对Xshell ：（1）新建
+（2）名称：随意
+（3）主机：输入目标机的IP地址
+（4）点击用户身份验证：输入用户名和密码

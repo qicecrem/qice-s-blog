@@ -1,0 +1,37 @@
+基本命令
+启动 Docker 服务: sudo systemctl start docker
+检查 Docker 服务状态: sudo systemctl status docker
+停止 Docker 服务: sudo systemctl stop docker
+重启 Docker 服务: sudo systemctl restart docker
+
+容器操作
+列出所有容器: docker ps -a
+列出正在运行的容器: docker ps
+启动容器: docker start <container_id>
+停止容器: docker stop <container_id>
+重新启动容器:docker restart <container_id>
+删除容器:docker rm <container_id>
+创建并运行一个新容器:docker run -it --name <container_name> <image_name>
+在运行的容器中打开一个交互式shell: docker exec -it <container_id> /bin/bash
+
+镜像操作
+列出所有镜像: docker images
+拉取镜像: docker pull <image_name>
+删除镜像: docker rmi <image_name>
+构建镜像； docker build -t <image_name> .
+
+网络操作
+列出所有网络： docker network ls
+创建网络： docker network create <network_name>
+连接容器到网络：docker network connect <network_name> <container_id>
+断开容器与网络的连接：docker network disconnect <network_name> <container_id>
+
+数据卷操作
+列出所有数据卷：docker volume ls
+创建数据卷：docker volume create <volume_name>
+删除数据卷：docker volume rm <volume_name>
+
+Docker Compose 操作
+启动服务：在包含 docker-compose.yml 文件的目录中运行：docker-compose up
+后台运行服务：docker-compose up -d
+停止服务： docker-compose down

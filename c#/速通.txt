@@ -25,7 +25,71 @@ COntains():判断字符串中是否包含指定的字符或字符串,返回bool�
 Convert.ToInt32():将其他类型的数据转换为整数
 Convert.ToDouble():将其他类型的数据转换为双精度浮点数
 Convert.ToString():将其他类型的数据转换为字符串
+.foreach循环：foreach(int i in array){...}遍历数组中的每一个元素
+数组的数组：
+方法一：int[][] array=new int[3][];创建一个包含3个数组的数组
+array[0]=new int[] {1,2};给数组中的第一个数组赋值
+方法二：
+int[][] array=new int[][]
+{
+    new int[] {1,2},
+    new int[] {3,4},
+    new int[] {5,6}
+};
+.函数：
+1.重载：在同一个类中可以有名字相同但参数列表不同的方法。
+2.局部函数：在一个方法中定义的函数，只能在该方法中调用。
+3.异步函数：在方法的返回类型前加async，方法中使用await关键字等待异步操作完成。
+例如：using System;
+using System.Net.Http;
+using System.Threading.Tasks;
 
+class Program
+{
+    static async Task Main(string[] args)
+    {
+        Console.WriteLine("Fetching data...");
+        string data = await FetchDataAsync("https://jsonplaceholder.typicode.com/todos/1");
+        Console.WriteLine("Data fetched:");
+        Console.WriteLine(data);
+    }
+
+    static async Task<string> FetchDataAsync(string url)
+    {
+        using HttpClient client = new HttpClient();
+        HttpResponseMessage response = await client.GetAsync(url);
+        response.EnsureSuccessStatusCode();
+        string responseData = await response.Content.ReadAsStringAsync();
+        return responseData;
+    }
+}
+
+ref参数：在方法的参数前加ref关键字，可以将参数的地址传递给方法，方法中对参数的修改会影响到原来的变量。
+out参数：在方法的参数前加out关键字，可以将参数的地址传递给方法，传递给 out 参数的变量在调用函数前不需要初始化，函数必须在返回前对该参数赋值。
+
+try-catch语句：用于捕获异常，格式如下：
+try{}
+catch(Exception e){}
+finally{}//可选，无论是否发生异常都会执行
+
+var timespan1 = new TimeSpan(1, 2, 3, 4, 500); // 1 day, 2 hours, 3 minutes, 4 seconds, 500 milliseconds
+var timespan2 = new TimeSpan(2, 30, 0); // 2 hours, 30 minutes, 0 seconds
+var timespanFromDays = TimeSpan.FromDays(1.5); // 1.5 days
+
+每当 await 遇到异步操作时，当前方法的执行会暂停，控制权返回给调用者。异步操作完成后，方法从暂停的地方继续执行。
+这种机制允许异步代码以同步方式编写，同时保持响应能力。
+
+interface：接口是一个没有实现的方法集合，定义了一组相关的方法、属性、事件或索引器。类或结构可以实现一个或多个接口。
+
+List<T>是C#中常用的泛型集合类型。
+
+IEnumerable<T>：属性的类型，表示返回的是一个 T 对象的可枚举集合
+
+Skip(1) 是 Linq 方法，返回一个新的集合，该集合从源集合的第二个元素开始（跳过第一个元素）。
+
+random.Next()：返回一个大于或等于 0 的随机整数。
+random.Next(int maxValue)：返回一个大于或等于 0 并且小于 maxValue 的随机整数。
+random.Next(int minValue, int maxValue)：返回一个大于或等于 minValue 并且小于 maxValue 的随机整数。
 
 
 

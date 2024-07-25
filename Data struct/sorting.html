@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>排序</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.25.0/themes/prism.min.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.25.0/prism.min.js"></script>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<p>
+1.1冒泡排序<br>
+基本思想：两两比较相邻记录的关键字，如果反序则交换，直到没有反序的记录为止。<br>
+复杂度：O(n^2)。
+代码示例：
+<pre><code>
+    void bubbleSort(int arr[], int n) {
+        int i, j;
+        for (i = 0; i < n - 1; i++) {
+            // 每一轮内循环
+            for (j = 0; j < n - i - 1; j++) {
+                // 如果前一个元素大于后一个元素，则交换
+                if (arr[j] > arr[j + 1]) {
+                    int temp = arr[j];
+                    arr[j] = arr[j + 1];
+                    arr[j + 1] = temp;
+                }
+            }
+        }
+    }
+</code></pre>
+</p>
+<p>
+    1.2选择排序<br>
+    基本思想：每一趟从待排序的数据元素中选出最小（或最大）的一个元素，顺序放在已排好序的数列的最后，直到全部待排序的数据元素排完。<br>
+    复杂度：O(n^2)。
+    代码示例：
+<pre><code>
+    // 选择排序函数
+    void selectionSort(int arr[], int n) {
+        int i, j, minIdx;
+    
+        // 遍历数组的每个元素
+        for (i = 0; i < n - 1; i++) {
+            // 假设当前元素是最小值
+            minIdx = i;
+    
+            // 在未排序部分寻找最小值
+            for (j = i + 1; j < n; j++) {
+                if (arr[j] < arr[minIdx]) {
+                    minIdx = j;
+                }
+            }
+    
+            // 交换找到的最小值与当前位置的值
+            int temp = arr[minIdx];
+            arr[minIdx] = arr[i];
+            arr[i] = temp;
+        }
+    }
+</code></pre>
+
+</p>
+<p>
+    1.3插入排序<br>
+    基本思想：构建有序序列，对于未排序数据，在已排序序列中从后向前扫描，找到相应位置并插入。<br>
+    复杂度：O(n^2)。
+    代码示例：
+    <pre><code>
+        // 插入排序函数
+        void insertionSort(int arr[], int n) {
+            int i, key, j;
+            for (i = 1; i < n; i++) {
+                key = arr[i];
+                j = i - 1;
+        
+                // 将arr[i]插入到已排序部分arr[0..i-1]中
+                while (j >= 0 && arr[j] > key) {
+                    arr[j + 1] = arr[j];
+                    j = j - 1;
+                }
+                arr[j + 1] = key;
+            }
+        }
+    </code></pre>
+</p>
+<p>
+    1.4希尔排序<br>
+    基本思想：希尔排序的基本思想是将待排序数组按照一定增量分组，对每组使用直接插入排序算法排序。随着算法的进行，增量逐渐减小，当增量减少到1时，整个数组恰好被分成一组，算法便终止。<br>
+    复杂度：O(nlogn)~O(n^2)。<br>
+    代码示例：
+    <pre><code>
+        void shellSort(int arr[], int n) {
+            // 选择增量序列，使用 Knuth 序列
+            for (int gap = n / 2; gap > 0; gap /= 2) {
+                // 对每个间隔 gap 的分组进行插入排序
+                for (int i = gap; i < n; i++) {
+                    int temp = arr[i];
+                    int j;
+                    // 插入排序
+                    for (j = i; j >= gap && arr[j - gap] > temp; j -= gap) {
+                        arr[j] = arr[j - gap];
+                    }
+                    arr[j] = temp;
+                }
+            }
+        }
+    </code></pre>
+</p>
+<p>
+    1.5堆排序<br>
+    基本思想：堆排序是一种基于二叉堆数据结构的排序算法。它将待排序的数组看作一个完全二叉树，并将其转换为最大堆或最小堆。然后，通过不断将堆顶元素与堆的最后一个元素交换，并调整堆，直到整个数组有序。<br>
+    复杂度：O(nlogn)。<br>
+    代码示例：
+    <pre><code>
+        // 交换两个元素
+        void swap(int *a, int *b) {
+            int temp = *a;
+            *a = *b;
+            *b = temp;
+        }
+        
+        // 调整堆，使其满足最大堆性质
+        void heapify(int arr[], int n, int i) {
+            int largest = i;
+            int left = 2 * i + 1;
+            int right = 2 * i + 2;
+        
+            // 如果左子节点比根节点大
+            if (left < n && arr[left] > arr[largest])
+                largest = left;
+        
+            // 如果右子节点比当前最大值大
+            if (right < n && arr[right] > arr[largest])
+                largest = right;
+        
+            // 如果最大值不是根节点
+            if (largest != i) {
+                swap(&arr[i], &arr[largest]);
+        
+                // 递归地调整子树
+                heapify(arr, n, largest);
+            }
+        }
+        
+        // 堆排序函数
+        void heapSort(int arr[], int n) {
+            // 构建最大堆
+            for (int i = n / 2 - 1; i >= 0; i--)
+                heapify(arr, n, i);
+        
+            // 一个接一个地从堆中取出元素
+            for (int i = n - 1; i > 0; i--) {
+                // 将当前根（最大值）移到末尾
+                swap(&arr[0], &arr[i]);
+        
+                // 调整堆
+                heapify(arr, i, 0);
+            }
+        }
+        
+    </code></pre>
+
+</p>
+<p>
+    1.6归并排序<br>
+    基本思想：是一种基于分治思想的排序算法。它通过将数组分成较小的子数组，并递归地对这些子数组进行排序，最后再将排序后的子数组合并起来，从而达到排序的目的。归并排序具有稳定性，且时间复杂度为O(nlogn)。<br>
+    复杂度：O(nlogn)。<br>
+    代码示例：
+    <pre><code>
+        // 合并两个有序的子数组
+        void merge(int arr[], int l, int m, int r) {
+            int i, j, k;
+            int n1 = m - l + 1;
+            int n2 = r - m;
+        
+            // 创建临时数组
+            int L[n1], R[n2];
+        
+            // 将数据复制到临时数组
+            for (i = 0; i < n1; i++)
+                L[i] = arr[l + i];
+            for (j = 0; j < n2; j++)
+                R[j] = arr[m + 1 + j];
+        
+            // 合并临时数组到 arr[l..r]
+            i = 0; // 初始化左边子数组的索引
+            j = 0; // 初始化右边子数组的索引
+            k = l; // 初始化合并子数组的索引
+            while (i < n1 && j < n2) {
+                if (L[i] <= R[j]) {
+                    arr[k] = L[i];
+                    i++;
+                } else {
+                    arr[k] = R[j];
+                    j++;
+                }
+                k++;
+            }
+        
+            // 复制L[]中剩余的元素
+            while (i < n1) {
+                arr[k] = L[i];
+                i++;
+                k++;
+            }
+        
+            // 复制R[]中剩余的元素
+            while (j < n2) {
+                arr[k] = R[j];
+                j++;
+                k++;
+            }
+        }
+        
+        // 递归地进行归并排序
+        void mergeSort(int arr[], int l, int r) {
+            if (l < r) {
+                // 找到中间点
+                int m = l + (r - l) / 2;
+        
+                // 递归地排序左右子数组
+                mergeSort(arr, l, m);
+                mergeSort(arr, m + 1, r);
+        
+                // 合并两个排序后的子数组
+                merge(arr, l, m, r);
+            }
+        }
+    </code></pre>
+</p>
+<P>
+    1.7快速排序<br>
+    基本思想：快速排序是一种基于分治思想的排序算法。它通过选择一个基准元素，将数组分成两个子数组，其中一个子数组的所有元素都小于基准元素，另一个子数组的所有元素都大于基准元素。然后，递归地对这两个子数组进行排序。<br>
+    复杂度：O(nlogn)。<br>
+    代码示例：
+    <pre><code>
+        // 交换两个元素
+        void swap(int* a, int* b) {
+            int temp = *a;
+            *a = *b;
+            *b = temp;
+        }
+        
+        // 分区函数
+        int partition(int arr[], int low, int high) {
+            int pivot = arr[high]; // 选择最后一个元素作为基准
+            int i = (low - 1); // 较小元素的索引
+        
+            for (int j = low; j <= high - 1; j++) {
+                // 如果当前元素小于或等于基准
+                if (arr[j] <= pivot) {
+                    i++; // 增加较小元素的索引
+                    swap(&arr[i], &arr[j]);
+                }
+            }
+            swap(&arr[i + 1], &arr[high]);
+            return (i + 1);
+        }
+        
+        // 快速排序函数
+        void quickSort(int arr[], int low, int high) {
+            if (low < high) {
+                // pi 是分区索引，arr[pi] 已经排好序
+                int pi = partition(arr, low, high);
+        
+                // 分别对左右子数组进行快速排序
+                quickSort(arr, low, pi - 1);
+                quickSort(arr, pi + 1, high);
+            }
+        }
+    </code></pre>
+
+
+
+
+
+</P>
+</body>
+</html>
