@@ -99,6 +99,36 @@ Date.UTC(year, month, day, hours, minutes, seconds, milliseconds): 返回 UTC �
 .getSeconds(): 返回日期对象的秒数（0-59）
 
 
+BOM（Browser Object Model）：浏览器对象模型，提供访问浏览器窗口和文档的方法和属性。
+window对象：表示浏览器窗口。{
+  获取：直接使用window，其中window可以省略。
+  属性：
+       history：对History对象只读引入。
+       location：对Location对象只读引入。
+       navigator：对Navigator对象只读引入。
+  方法：
+      alter(): 弹出警告框。
+      confirm(): 弹出确认框，返回true或false。
+      setInterval(): 定时执行函数。
+      setTimeout(): 延迟执行函数。
+      open(): 打开一个新的窗口或tab。
+}
+location对象：表示当前页面的URL。{
+获取：windowlocation获取，windows可省略。
+属性：
+      href: 页面的完整URL。
+      protocol: 页面的协议。
+      host: 页面的主机名。
+location.href="http://www.baidu.com"; // 跳转到指定页面
+
+
+}
+navigator对象：表示浏览器的信息。 
+Screen对象：表示屏幕的大小和颜色。
+History对象：表示浏览器的历史记录。
+
+
+
 DOM 操作
 DOM:文档对象模型，是W3C组织推荐的处理可扩展标记语言的标准编程接口。
 DOM把整个页面映射为一个多层节点结构。
@@ -120,7 +150,7 @@ DocumentFragment: 文档片段
 
 Node.nodeType():返回节点的类型。
  
-DOM操作：
+DOM操作： 
 （1）获取元素：
 document.getElementById(id): 根据 id 获取元素
 document.getElementsByClassName(className): 根据 class 获取元素
@@ -137,6 +167,8 @@ Element.classList.toggle(className): 切换一个 class
 Element.classList.contains(className): 判断是否包含某个 class
 Element.innerHTML: 获取或设置元素的 HTML 内容
 Element.innerText: 获取或设置元素的文本内容
+Element.src: 获取或设置元素的 src 属性
+Element.href: 获取或设置元素的 href 属性
 Element.style: 获取或设置元素的样式
 Element.getAttribute(attribute): 获取元素属性
 Element.setAttribute(attribute, value): 设置元素属性
@@ -254,3 +286,87 @@ function throttle(func, wait) {
     }
   };
 }
+
+
+Vue是一套前端框架，免除原生JavaScript操作DOM的复杂性，提供了数据绑定、组件系统、路由系统等功能，将变成关注点放在数据上。
+Vue快速入门：
+新建HTML文件，引入Vue.js文件。
+<script src="js/vue.js"></script>
+
+在js代码区，创建Vue核心对象，定义数据模型
+<script>
+       new Vue({
+           el:"app"
+           data:{
+            message:"Hello Vue!"
+           }
+       })
+</script>
+
+编写视图
+<div id="app">
+<input type="text" v-model="message">
+{{message}}
+</div>
+
+插值表达式
+形式：{{表达式}}
+内容可以是：
+变量
+三元运算符
+函数调用
+算术运算
+
+常用表达式：
+v-bind： 为HTML标签绑定属性值，如设置href，css样式等。{<a v-bind:href="url">链接</a> 或 <a :href="url">链接</a>}
+v-model：在表单创建双向数据绑定。{<input type="text" v-model="url">}
+v-on：为HTML标签绑定事件处理程序。{<input type="button" value="点我" v-on:click="handle()"> 或 <input type="button" value="点我" @click="handle()">}
+v-if v-else-if v-else： 条件性的渲染某元素，判断为true是渲染否则不渲染
+v-show：根据条件展示某元素，区别在于切换的display属性的值(不显示但会渲染)
+v-for： 列表渲染，遍历容器的元素或对象属性。
+
+vue生命周期：
+mounted：组件被挂载完成时触发（发送请求到服务端，加载数据）
+
+Ajax：
+作用：数据交换：通过Ajax可以给服务器发送请求，从服务器获取数据，并更新到页面上。
+异步交换：可以在不重新加载页面的情况下，与服务器交换数据并更新部分网页的数据，如：搜索联想，用户名是否可用，邮箱是否注册等。
+Axios：对原生的Ajax进行了封装，简化书写，快速开发。
+
+Axios入门：
+1.引入Axios.js文件。
+<script src="js/axios.js"></script>
+2.使用Axios发送请求，并获响应结果
+axios({
+  method: 'get',\
+  url: 'https://www.example.com/api/data',\
+}).then((result)=>{
+  console.log(result.data);
+});
+axios({
+  method: 'post',
+  url: 'https://www.example.com/api/data',
+  data: {
+    name: '张三',
+    age: 18
+  }
+}).then((result)=>{
+  console.log(result.data);
+})
+Axios请求方式别名：
+axios.get(url, [,config])
+axios.delete(url, [,config])
+axios.post(url, data[,config])
+axios.put(url, data[,config])
+发送GET请求：
+axios.get('https://www.example.com/api/data').then((result)=>{
+  console.log(result.data);
+});
+发送POST请求：
+axios.post('https://www.example.com/api/data', {
+  name: '张三',
+  age: 18
+}).then((result)=>{
+  console.log(result.data);
+});
+
