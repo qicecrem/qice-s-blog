@@ -1,0 +1,45 @@
+不可变的集合：
+ List<Integer> list = List.of(1, 2, 3, 4, 5);
+ Set<Integer> set = Set.of(1, 2, 3, 4, 5);      参数唯一
+ Map<String, Integer> map = Map.of("a", 1, "b", 2, "c", 3);  键唯一，不可以超过10个
+ 超过10个可用：
+    Set<Map.Entry<String, Integer>> entries = map.entrySet();
+    Map.Entry[] arr1=new Map.Entry[0];
+    Map.Entry[] arr2=entries.toArray(arr1);
+    Map map=Map.ofEntries(arr2);
+    简化：
+    Map<Object,Object> map=Map.ofEntries(hm.entrySet().toArray(new Map.Entry[0]));
+    jdk10后：
+    Map<Object,Object> map=Map.copyOf(hm);
+
+单列集合获取stream流：Collection的默认方法。
+        ArrayLiat<Integer> list=Arrays.asList(1,2,3,4,5);
+        Stream<Integer> stream=list.stream();
+双列集合：
+      Map<String,Integer> map=new HashMap<>();
+       map.keySet.stream();
+       或
+       map.entrySet.stream();     
+数组：Arrays中静态方法
+       int[] arr1={1,2,3,4,5};
+       Arrays.stream(arr1);
+零散数据：Stream.of()方法
+        Stream<Integer> stream=Stream.of(1,2,3,4,5);
+
+Stream流中间方法：
+    filter：过滤
+    limit：截取前几个元素
+    skip：跳过前几个元素
+    distinct：去重（依赖hashCode和equals）
+    concat(Stream a, Stream b):合并两个流
+    map:转换流中的数据类型
+
+Stream流终结方法：
+    forEach：遍历
+    count：计算元素个数
+    toArray（）：收集流的数据，放到数组中
+    collect（Collector collector） 收集流的数据放到集合中
+               Collectors.toList()：转为List
+               Collectors.toSet()：转为Set
+               Collectors.toMap()：转为Map
+

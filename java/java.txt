@@ -987,7 +987,14 @@ static Thread currentThread() 获取当前线程对象
 static void sleep（long millis） 线程休眠（单位：毫秒）
 setProperty（int newPrority） 设置线程优先级（默认为5）
 final int getPriority() 获取线程优先级
-final void setDaemon(boolean on) 设置线程为守护线程（默认false）
+final void setDaemon(boolean on) 设置线程为守护线程（默认false）当其他非守护线程结束后，守护线程会陆续结束。
+public static void yield() 出让线程/礼让线程
+public static void join() 插入线程/插队线程
+
+Jvm虚拟机启动后会自动启动多条线程
+其中一条线程叫做main线程
+它的作用是调用main方法，然后执行main方法中的代码
+
 
 线程的调度方式：
 抢占式调度（随机）
