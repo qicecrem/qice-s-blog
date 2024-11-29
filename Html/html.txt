@@ -1,0 +1,191 @@
+标题标签：h1-h6（双标签）
+  显示特点：文字加粗，字号逐渐减小，独占一行
+段落标签：p（双标签）
+  显示特点：独占一行，段落之间存在间隙
+换行：br（单标签）
+水平线：hr（单标签）
+文本格式化标签（双标签）：strong 加粗； 
+                        em   斜体； 
+                        lns  下划线； 
+                        del  删除线； 
+                        sup  上标
+                        sub  下标
+图像标签：img（单标签） <img src="图片路径" alt="图片说明" width="宽度" height="高度">
+超链接标签：a（双标签） <a href="链接地址">链接文字</a>  （加上target="_blank" 打开新窗口  加#表示空连接）
+音频标签：audio（单标签） <audio src="音频路径" controls="controls" loop="loop">你的浏览器不支持音频播放</audio>   
+                                                                 （controls 显示控制面板  loop 循环播放）
+视频标签：video（单标签） <video src="视频路径" controls="controls" width="宽度" height="高度" loop="loop" muted="muted" autoplay="autoplay">你的浏览器不支持视频播放</video>   （controls 显示控制面板  width 宽度  height 高度  loop 循环播放   muted 静音  autoplay 支持静音状态下自动播放）
+列表
+ 作用：布局内容排列整齐的区域
+ 无序列表：标签ul嵌套li，ul是无序列表，li是列表条目。
+      <ul>
+       <li>第一项目</li>
+      </ul>
+有序列表： 标签ol嵌套li，ol是有序列表，li是有序列表条目。
+定义列表：标签 dt嵌套dt和dd，dl是定义列表，dt是定义列表的标题，dd是定义列表的描述/详情。
+    <dl>
+     <dt> 标题 </dt>
+     <dd> 描述 </dd>
+    <dl>
+表格： 标签table 嵌套tr，tr嵌套td/th。（tr 行  th 表头单元格   td 内容单元格       使用border属性为表格添加边框）
+合并表格：保留最左最上的单元格，添加属性（取值是数字，表示需要合并的单元格数量）
+         -跨行合并，保留最上单元格，添加属性rowspan
+         -跨列合并，保留最左单元格，添加属性colspan
+        删除其他单元格
+
+表单：
+  作用：收集用户信息
+  使用场景：登陆页面
+           注册页面
+           搜索区域
+  input标签 type属性值不同，则功能不同 <input type=" ">
+           text 文本框，用于输入单行文本
+           password 密码框
+           radio   单选框
+           checkbox 多选框
+           file   上传文件
+    input 占位文本 <input type=" " placehold="提示信息">
+    radio 属性：
+      name 控件名称（控件分组，同组只能选一个）
+      checked 默认选中 （属性名与属性值相同简写为一个单词）
+    file 属性：
+      默认只能上传一个文件，添加multiple属性可以实现文件的多选功能。
+    checkbox 属性：
+       checked 默认选中 （属性名与属性值相同简写为一个单词）
+  下拉菜单：select嵌套option， select是下拉菜单整体，option是下拉菜单的每一项 加selected属性默认选中。
+  文本域：多行输入文本的表单控件
+      标签：textarea 双标签
+  label 标签：网页中某个标签的说明文本（经验：用label标签绑定文字和表单控件的关系，增大表单控件的点击范围）
+              <input type="radio" name="gender" id="woman" checked> <label for="woman">女</label> 
+              <label ><input type="radio" name="gender">man</label>
+  按钮：<button type="">按钮</button>
+       type属性值：
+           submit 提交按钮，点击后可以提交提交数据到后台（默认功能）
+           reset  重置按钮，点击后将表单控件恢复默认值
+           button 普通按钮，默认没有功能，配合js使用
+           需要嵌套在form标签内。
+  
+无语义的布局标签：布局网页（划分网页内容，摆放内容）
+    div ：独占一行
+    span：不换行
+
+字符实体：
+   空格 &nbsp;
+   <    &lt;
+   >    &gt;
+
+   css 在title标签下方，嵌套与style标签
+   引入css<link rel="stylesheet" href="./my.css">
+
+选择器：查找标签，设置样式
+   基础选择器：
+      标签选择器（使用标签名->同种标签设置相同的样式）
+      类选择器(定义类选择器->.类名   使用类选择器->标签中添加 class=”类名“ 一个标签可以使用多个类)
+      id选择器（一般配合js使用 定义id选择器-> #id名 使用id选择器->标签中添加id=”id名“ 同一个id选择器在一个页面中只能使用一次）
+      通配符选择器（查找页面所有标签，设置相同样式 ）
+
+
+字体修饰属性：
+  字体大小：font-size
+  字体粗细：font-weight
+  字体倾斜：font-style（normal， italic）
+  行高：    line-height 
+  字体族：  font-family（可以设置多个字体名，执行顺序从左到右）
+  字体复合属性： font（属性的简写方式，【font ：是否倾斜 是否加粗 字号/行高 字体 】字号和字体必写）
+  文本缩进：  text-indent（属性值：数字+px ；数字+em{1em=当前标签的字号大小}
+   文本对齐：  text-align（属性值：lft center right）
+   修饰线：   text-decoration（属性值：none underline line-through overline）
+   颜色：    color（颜色表示方法：
+                               颜色关键字：red...
+                               rgba表示法：rgba（r，g，b，a） rgb表示红绿蓝（0-255） a表示透明度（0-1）
+                               16进制表示：#RRGGBB
+伪类选择器：伪类表示元素状态，选中元素的某个状态设置样式
+            鼠标悬停状态：选择器：hover
+              a：hover{
+                color：red；
+              }
+
+css特性：继承，层叠性，优先级
+        继承性：子类默认继承父类的文字控制属性
+        层叠性：相同的属性会覆盖，不同的属性会叠加
+        优先级：当一个标签使用了多种选择器时会基于不同种类的选择器的匹配规则
+          通配符<标签选择器<类选择器<id选择器<能内样式<!important
+
+背景属性：
+  背景色：background-color
+  背景图：background-image（background-image：url("")）
+  背景图平铺方式：background-repeat（属性：no-repeat repeat repeat-x repeat-y）
+  背景图位置：background-position（关键字：left right center top bottom 坐标：数字+px 水平 垂直）
+  背景图缩放：background-size（关键字：cover：完全覆盖背景区，可能背景图片部分看不见； contain：背景图完全装入背景区，可能背景区部分空白； 百分比：）
+  背景图固定：background-attachment（背景图不会随元素的内容滚动）（属性值：fixed）
+  背景复合属性：background（空格隔开各个属性值，不区分顺序）
+
+转换显示模式：
+      属性名：display    属性值：block：块级  lnline-block：行内块   lnline：行内
+
+结构伪类选择器：根据元素的结构的关系查找元素。
+   E：first-child 查找第一个E元素
+   E: last-child 查找最后一个E元素
+   E:nth-child(N) 查找第N个元素（第一个元素N值为1）
+        :nth-child(公式) 2n 偶数标签
+                        2n+1 奇数标签
+                        5n   找到5的倍数标签
+                        n+5  找到第5个以后的标签
+                        -n+5  找到第5个以前的标签
+     例：li：nth-child（2）{
+                  background-color：red；
+               }
+
+伪类选择器：创建虚拟元素，用来摆放装饰性的内容
+   E::before 在E元素里面最前面添加一个伪元素
+   E::after  在E元素里面最后面添加一个伪元素
+   设置content：“ ”属性，用来设置伪类的内容，如果没有内容则引号留空即可
+    伪类元素默认是行内显示模式
+    权重和标签选择器相同
+
+盒子模型：
+   内容区域：width & height
+   内边距：  padding（出现在内容和盒子边缘之间）
+            padding-方位名词
+   边框线：border（属性值： solid：实线  dashed：虚线  dotted：点线）
+           border-方位名词（属性值：边框粗细 线条样式 颜色）
+   外边距： margin（出现在盒子外面）
+            版心居中 margin：0 auto；
+   元素溢出：控制溢出元素的内容和显示方式
+         属性名：overflow 属性值：hidden 溢出隐藏   scroll 无论是否溢出都显示滚动条
+                                 auto 溢出才显示滚动条位置。
+     合并现象：垂直排列的兄弟元素，上下margin会合并（取margin中的较大值生效）
+     塌陷问题：父级标签，子级添加上外边距会产生塌陷问题 现象：导致父级一起向下移动
+              解决方法：取消子级margin，父级设置padding
+      行内元素-内外边距问题：行内元素添加margin和padding，无法改变元素的垂直位置
+               解决方法：给行内元素添加line-height可以改变垂直位置
+    圆角：设置元素的外边框为圆角 属性名：border-radius 属性值 数字+px/百分比（圆形：50%  胶囊：高度的一半）
+    
+浮动：让元素块水平排列 属性名：float  属性值：left 左对齐   right 右对齐
+
+Flex布局：布局网页更简单高效
+    设置方式：给父元素设置：display：flex，子元素可以自动挤压和拉伸
+    组成部分：
+    弹性容器
+    弹性盒子
+    主轴：默认在水平方向
+    侧轴：默认在垂直方向
+    主轴对齐方式：justify-content
+       属性值：flex-start 默认值，弹性盒子从起点开始依次排列
+              flex-end 弹性盒子从中点开始依次排列
+              center 弹性盒子沿主轴居中排列
+              space-between：弹性盒子沿主轴均匀排列，空白间距均分在弹性盒子之间
+              space-around：弹性盒子沿主轴均匀排列，空白间距均分在弹性盒子两侧
+              space-evenly 弹性盒子沿主轴均匀排列，弹性盒子与容器之间距相等
+    侧轴对齐方式：align-items
+    某个弹性盒子侧轴对齐方式： align-self
+       属性值：stretch 弹性盒子沿着侧轴行被拉伸至铺满容器
+              center 弹性盒子沿侧轴居中排列
+              flex-start 弹性盒子从起点开始依次排列
+              flex-end   弹性盒子从终点开始依次排列
+
+    修改主轴方向：flex-direction
+        属性值：column 垂直方向，从上到下
+    弹性伸缩比 Flex
+    弹性盒子换行：flex-wrap
+    行对齐方式：align-content
