@@ -1,0 +1,11 @@
+1. 使用 values() 方法
+每个 enum 都隐含定义了一个 values() 方法，返回该 enum 的所有枚举常量的数组。你可以使用 values() 来遍历所有的枚举常量。
+     for (Allergen allergen : Allergen.values()) {
+            System.out.println(allergen + " has score: " + allergen.getScore());
+        }
+
+2. 使用 EnumSet
+EnumSet 是 Java 提供的一个专门用于处理枚举类型集合的类。你可以使用 EnumSet.allOf() 来获取所有的枚举常量并进行遍历。
+    for (Allergen allergen : EnumSet.allOf(Allergen.class)) {
+            System.out.println(allergen + " has score: " + allergen.getScore());
+        }

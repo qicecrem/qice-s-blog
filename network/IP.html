@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IP</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.25.0/themes/prism.min.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.25.0/prism.min.js"></script>
+    <style>
+        /* 自定义样式可以在这里添加 */
+        pre {
+            background-color: #f4f4f4;
+            padding: 10px;
+            border: 1px solid #ccc;
+            overflow: auto;
+        }
+
+        code {
+            font-family: monospace;
+        }
+    </style>
+</head>
+
+<body>
+<p>2.1 IP服务的特点：
+无状态，无连接，不可靠。<br>
+无状态：通信双方不同步传输数据的状态信息。
+无连接：通信双方都不长久地维持对方的任何信息。
+不可靠：IP服务不保证数据的可靠传输，只是尽力而为，不保证数据的完整性和正确性。
+</p>
+<p>2.2.1 IPv4头部结构<br>
+<img src="picture\24-06-05_08-55-18.png" alt="IPv4头部结构" width="500" height="300"> <br>
+4位版本号：指明IP协议的版本，IPv4的版本号为4。<br>
+4位头部长度：指明IP头部的长度，单位为4字节，最大值为15，即最大长度为60字节。<br>
+8位服务类型：用于指明IP数据报的服务类型，如最小延迟、最大吞吐量、最高可靠性等。<br>
+16位总长度：指明整个IP数据报的长度，单位为字节，最大值为65535字节。由于MTU限制，实际传输的IP数据远没有达到最大值，接下来的3字段描述如何实现分片<br>
+16位标识：用于唯一地标识主机发送的每一份数据报。分片具有相同的标识值<br>
+3位标志：第一位保留，第二位为DF位，如果DF=0，表示可以分片，如果DF=1，表示不允许分片。第三位为MF位，如果MF=0，表示为最后一个分片，如果MF=1，表示为更多分片。<br>
+13位片偏移：指明该分片相对于原始数据报开头的偏移量，单位为8字节，最大值为8191。<br>
+8位生存时间：是数据报到达目的地之前允许经过的路由跳数，每经过一个路由器，生存时间减1，当生存时间为0时，数据报被丢弃。<br>
+8位协议：指明上层协议，如TCP、UDP、ICMP等。<br>
+16位首部校验和：用于校验IP头部的正确性，而不校验数据部分。<br>
+32位源IP地址：指明发送端的IP地址。<br>
+32位目的IP地址：指明接收端的IP地址。<br>
+选项字段：最多包含40字节，可用选项：记录路由，时间戳，松散源路由选择，严格源路由选择。<br>
+</p>
+<p>2.3 IP分片<br>
+当IP数据包长度超过帧的MTU时，就需要进行分片。分片的过程如下：<br>
+1.发送端将数据报分片，每个分片都有一个IP头部，但是只有第一个分片有原始数据报的全部头部，其他分片只有原始数据报的部分头部。<br>
+2.每个分片都有一个标识字段，用于标识属于同一个数据报的分片。<br>
+3.每个分片都有一个片偏移字段，用于指明该分片相对于原始数据报开头的偏移量，单位为8字节。<br>
+4.每个分片都有一个MF位，如果MF=0，表示为最后一个分片，如果MF=1，表示为更多分片。<br>
+5.接收端接收到所有分片后，根据标识字段和片偏移字段将分片重组为原始数据报。<br>
+<img src="picture\24-06-05_09-42-29.png" alt="IP分片" > <br>
+</p>
+<p>2.4.1 IP 模块工作流程<br>
+<img src="picture\24-06-05_09-54-24.png" alt="IP 模块工作流程">
+</p>
+<p>2.4.2 路由机制<br>
+<img src="picture\24-06-05_19-25-19.png" alt="路由机制"> <br>
+<img src="picture\24-06-05_19-25-44.png" alt="路由机制"> <br>
+</p>
+<p>2.5 IP转发<br>
+修改使用主机的数据报转发功能：echo 1 > /proc/sys/net/ipv4/ip_forward<br>
+</p>
+<p>2.6.1 ICMP重定向报文<br>
+<img src="picture\24-06-05_19-36-51.png" alt="ICMP重定向报文"> <br>
+工作原理
+发送数据包：主机发送一个数据包到目标，通过默认网关（路由器A）。
+路由检查：路由器A接收到数据包后，检查路由表，发现有更优的路径通过另一路由器B到达目标。
+转发数据包：路由器A将数据包转发给路由器B。
+发送ICMP重定向：路由器A向发送主机发送一个ICMP重定向报文，告知主机以后应将相应的数据包直接发送到路由器B。
+ICMP 重定向报文格式
+ICMP 重定向报文的结构包括以下字段：
+
+类型（Type）: 固定值为 5，表示这是一个重定向报文。
+代码（Code）: 表示重定向的原因，有四种可能值：
+0: 重定向网络（Redirect Datagram for the Network）
+1: 重定向主机（Redirect Datagram for the Host）
+2: 重定向服务和网络（Redirect Datagram for the Type of Service and Network）
+3: 重定向服务和主机（Redirect Datagram for the Type of Service and Host）
+校验和（Checksum）: 用于错误检测。
+网关地址（Gateway IP Address）: 指示新的路由器地址，主机应将数据包发送到此地址。
+原始 IP 头部和前 8 字节的数据: 包含原始数据包的 IP 头部和前 8 字节的数据，以便主机识别出该数据包。
+</p>
+ 
+
+
+
+
+
+
+</body>
+
+</html>

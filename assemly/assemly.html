@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+        <html>
+        <head>
+            <meta charset="UTF-8">
+            <title>&ast;&ast;8086&#x6c47;&#x7f16;&#x6307;&#x4ee4;&#x6982;&#x89c8;&ast;&ast;</title>
+            <style>
+/* From extension vscode.github */
+/*---------------------------------------------------------------------------------------------
+ *  Copyright (c) Microsoft Corporation. All rights reserved.
+ *  Licensed under the MIT License. See License.txt in the project root for license information.
+ *--------------------------------------------------------------------------------------------*/
+
+.vscode-dark img[src$=\#gh-light-mode-only],
+.vscode-light img[src$=\#gh-dark-mode-only],
+.vscode-high-contrast:not(.vscode-high-contrast-light) img[src$=\#gh-light-mode-only],
+.vscode-high-contrast-light img[src$=\#gh-dark-mode-only] {
+	display: none;
+}
+
+</style>
+            <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex/dist/katex.min.css">
+<link href="https://cdn.jsdelivr.net/npm/katex-copytex@latest/dist/katex-copytex.min.css" rel="stylesheet" type="text/css">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Microsoft/vscode/extensions/markdown-language-features/media/markdown.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Microsoft/vscode/extensions/markdown-language-features/media/highlight.css">
+<style>
+            body {
+                font-family: -apple-system, BlinkMacSystemFont, 'Segoe WPC', 'Segoe UI', system-ui, 'Ubuntu', 'Droid Sans', sans-serif;
+                font-size: 14px;
+                line-height: 1.6;
+            }
+        </style>
+        <style>
+.task-list-item {
+    list-style-type: none;
+}
+
+.task-list-item-checkbox {
+    margin-left: -20px;
+    vertical-align: middle;
+    pointer-events: none;
+}
+</style>
+<style>
+:root {
+  --color-note: #0969da;
+  --color-tip: #1a7f37;
+  --color-warning: #9a6700;
+  --color-severe: #bc4c00;
+  --color-caution: #d1242f;
+  --color-important: #8250df;
+}
+
+</style>
+<style>
+@media (prefers-color-scheme: dark) {
+  :root {
+    --color-note: #2f81f7;
+    --color-tip: #3fb950;
+    --color-warning: #d29922;
+    --color-severe: #db6d28;
+    --color-caution: #f85149;
+    --color-important: #a371f7;
+  }
+}
+
+</style>
+<style>
+.markdown-alert {
+  padding: 0.5rem 1rem;
+  margin-bottom: 16px;
+  color: inherit;
+  border-left: .25em solid #888;
+}
+
+.markdown-alert>:first-child {
+  margin-top: 0
+}
+
+.markdown-alert>:last-child {
+  margin-bottom: 0
+}
+
+.markdown-alert .markdown-alert-title {
+  display: flex;
+  font-weight: 500;
+  align-items: center;
+  line-height: 1
+}
+
+.markdown-alert .markdown-alert-title .octicon {
+  margin-right: 0.5rem;
+  display: inline-block;
+  overflow: visible !important;
+  vertical-align: text-bottom;
+  fill: currentColor;
+}
+
+.markdown-alert.markdown-alert-note {
+  border-left-color: var(--color-note);
+}
+
+.markdown-alert.markdown-alert-note .markdown-alert-title {
+  color: var(--color-note);
+}
+
+.markdown-alert.markdown-alert-important {
+  border-left-color: var(--color-important);
+}
+
+.markdown-alert.markdown-alert-important .markdown-alert-title {
+  color: var(--color-important);
+}
+
+.markdown-alert.markdown-alert-warning {
+  border-left-color: var(--color-warning);
+}
+
+.markdown-alert.markdown-alert-warning .markdown-alert-title {
+  color: var(--color-warning);
+}
+
+.markdown-alert.markdown-alert-tip {
+  border-left-color: var(--color-tip);
+}
+
+.markdown-alert.markdown-alert-tip .markdown-alert-title {
+  color: var(--color-tip);
+}
+
+.markdown-alert.markdown-alert-caution {
+  border-left-color: var(--color-caution);
+}
+
+.markdown-alert.markdown-alert-caution .markdown-alert-title {
+  color: var(--color-caution);
+}
+
+</style>
+        
+        </head>
+        <body class="vscode-body vscode-light">
+            <hr>
+<h3 id="8086汇编指令概览"><strong>8086汇编指令概览</strong></h3>
+<h4 id="基本指令"><strong>基本指令</strong></h4>
+<ul>
+<li>
+<p><strong>寄存器操作</strong></p>
+<ul>
+<li>查看/修改寄存器内容：<code>r</code> 命令。</li>
+<li>修改寄存器值：如 <code>r ax</code> 后输入值。</li>
+</ul>
+<pre><code class="language-assembly">r ax       ; 查看AX寄存器内容
+r ax, 1234H ; 将AX寄存器的值改为1234H
+</code></pre>
+</li>
+<li>
+<p><strong>内存操作</strong></p>
+<ul>
+<li>查看：<code>d</code>（段地址：偏移地址）。</li>
+<li>修改：<code>e</code>。</li>
+<li>反汇编：<code>u</code>（将机器指令翻译为汇编指令）。</li>
+</ul>
+<pre><code class="language-assembly">d 0A00:0100  ; 查看内存地址0A00:0100开始的内容
+e 0A00:0100 12 34 56 ; 修改0A00:0100处的内容为12H, 34H, 56H
+</code></pre>
+<pre><code class="language-assembly">u 0A00:0000 ; 将0A00:0000处的机器码翻译成汇编指令
+</code></pre>
+</li>
+<li>
+<p><strong>执行与控制</strong></p>
+<ul>
+<li>执行单条机器指令：<code>t</code>（指令地址由 <code>CS:IP</code> 指向）。</li>
+<li>写入指令：<code>a</code>（向内存写入汇编指令）。</li>
+</ul>
+</li>
+</ul>
+<h4 id="数据传输"><strong>数据传输</strong></h4>
+<ul>
+<li>
+<p><strong>MOV 指令</strong></p>
+<ul>
+<li>数据传输：<code>MOV 寄存器, 数据/内存</code>。</li>
+<li>间接地址：<code>MOV 间接寻址寄存器, OFFSET 变量名</code>。</li>
+</ul>
+<pre><code class="language-assembly">MOV AX, 1234H    ; 将数据1234H送入AX
+MOV BX, AX       ; 将AX的值复制到BX
+MOV AL, [0A00H]  ; 将内存0A00H处的数据送入AL
+</code></pre>
+</li>
+</ul>
+<h4 id="算术操作"><strong>算术操作</strong></h4>
+<ul>
+<li>
+<p><strong>ADD/SUB</strong></p>
+<ul>
+<li><code>ADD 目标, 源</code>（溢出舍去）。</li>
+<li><code>SUB 目标, 源</code>（借位舍去）。</li>
+</ul>
+</li>
+<li>
+<p><strong>MUL/DIV</strong></p>
+<ul>
+<li><strong>乘法 (MUL)</strong>:
+<ul>
+<li>8位操作：<code>AL * reg/内存</code> → 结果存于<code>AX</code>。</li>
+<li>16位操作：<code>AX * reg/内存</code> → 高位<code>DX</code>，低位<code>AX</code>。</li>
+</ul>
+</li>
+<li><strong>除法 (DIV)</strong>:
+<ul>
+<li>8位除法：被除数<code>AX</code> → 商<code>AL</code>，余数<code>AH</code>。</li>
+<li>16位除法：被除数<code>DX:AX</code> → 商<code>AX</code>，余数<code>DX</code>。</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h4 id="逻辑与移位"><strong>逻辑与移位</strong></h4>
+<ul>
+<li><strong>逻辑操作</strong>
+<ul>
+<li><code>AND</code>、<code>OR</code>。</li>
+</ul>
+</li>
+<li><strong>移位与循环</strong>
+<ul>
+<li>左移/右移：<code>SHL</code>/<code>SHR</code>。</li>
+<li>循环左移/右移：<code>ROL</code>/<code>ROR</code>。</li>
+</ul>
+</li>
+</ul>
+<h4 id="程序流控制"><strong>程序流控制</strong></h4>
+<ul>
+<li><strong>条件跳转</strong>
+<ul>
+<li><code>CMP 目的, 源</code> + <code>JXX</code> (如<code>JE</code>、<code>JL</code>等)。</li>
+</ul>
+</li>
+<li><strong>循环</strong>
+<ul>
+<li><code>LOOP 标号</code>：利用<code>CX</code>寄存器计数，<code>CX=0</code>时结束。</li>
+</ul>
+</li>
+</ul>
+<h4 id="堆栈操作"><strong>堆栈操作</strong></h4>
+<ul>
+<li><strong>堆栈定义</strong>
+<ul>
+<li><code>SEGMENT STACK</code> 定义堆栈段。</li>
+<li>指令：<code>PUSH</code>、<code>POP</code>、<code>PUSHF</code>、<code>POPF</code>。</li>
+</ul>
+</li>
+<li><strong>堆栈相关寄存器</strong>
+<ul>
+<li><code>SS</code>（段基址）、<code>SP</code>（栈顶指针）。</li>
+</ul>
+</li>
+</ul>
+<hr>
+<pre><code class="language-assembly">DATA SEGMENT
+X DB 10H
+DATA ENDS
+
+CODE SEGMENT
+ASSUME CS:CODE, DS:DATA
+
+START: MOV AX, DATA
+       MOV DS, AX
+       MOV SI, OFFSET X  ; 获取变量
+
+
+### **伪指令**
+- **数据定义**
+- `DB`（字节）、`DW`（字）、`DD`（双字）。
+- 未知值：`?`。
+- 重复：`DUP`。
+
+- **段定义**
+- 数据段：`段名 SEGMENT ... ENDS`。
+- 堆栈段：`SEGMENT STACK`。
+
+- **符号定义**
+- `EQU` 或 `符号名 = 表达式`。
+
+- **段基址**
+- `SEG 地址表达式`：获取段基址。
+
+---
+
+### **中断调用**
+- **通用调用格式**
+- `INT 21H`：DOS功能调用。
+- 功能号存于`AH`，参数存于其他寄存器。
+
+- **常用功能号**
+- **键盘输入**：功能号 `01` → 字符存入`AL`。
+- **单字符显示**：功能号 `02`，字符在`DL`。
+- **字符串显示**：功能号 `09`，`DX`指向字符串，以`$`结尾。
+- **程序退出**：功能号 `4C`。
+
+---
+
+### **程序结构**
+- **数据段**
+```assembly
+DATA SEGMENT
+   X DB -1, 255, 'A', 3+2, ?
+DATA ENDS
+</code></pre>
+<ul>
+<li>
+<p><strong>代码段</strong></p>
+<pre><code class="language-assembly">CODE SEGMENT
+ASSUME CS:CODE, DS:DATA
+START: MOV AX, DATA
+       MOV DS, AX
+       ... (其他代码) ...
+       MOV AX, 4C00H
+       INT 21H
+CODE ENDS
+END START
+</code></pre>
+</li>
+<li>
+<p><strong>子程序</strong></p>
+<pre><code class="language-assembly">SUB_NAME PROC
+    ... ; 子程序代码
+    RET
+SUB_NAME ENDP
+</code></pre>
+</li>
+</ul>
+<hr>
+<h3 id="应用实例"><strong>应用实例</strong></h3>
+<ol>
+<li>
+<p><strong>循环与条件</strong></p>
+<pre><code class="language-assembly">MOV CX, 5
+LOOP_START:
+    ... ; 循环操作
+    LOOP LOOP_START
+</code></pre>
+</li>
+<li>
+<p><strong>字符串显示</strong></p>
+<pre><code class="language-assembly">MOV AH, 09
+MOV DX, OFFSET MSG
+INT 21H
+</code></pre>
+</li>
+<li>
+<p><strong>键盘输入字符</strong></p>
+<pre><code class="language-assembly">MOV AH, 01
+INT 21H
+</code></pre>
+</li>
+</ol>
+<hr>
+
+            <script async src="https://cdn.jsdelivr.net/npm/katex-copytex@latest/dist/katex-copytex.min.js"></script>
+            
+        </body>
+        </html>

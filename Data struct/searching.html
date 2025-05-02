@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>查找</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.25.0/themes/prism.min.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.25.0/prism.min.js"></script>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div>
+    <p>
+1.二分查找
+（1）基本思想：在有序表中，取中间记录作为比较对象，若给定值与中间记录的关键字相等，则查找成功；<br>
+     若给定值小于中间记录的关键字，则在中间记录的左半区继续查找；若给定值大于中间记录的关键字，<br>
+     则在中间记录的右半区继续查找。不断重复上述过程，直到查找成功，或所有查找区域无记录，查找失败为止。<br>
+（2）代码实现：
+<pre><code>
+    //折半查找
+    int Binary_Search(int* a, int n, int key)//n表示数组大小
+    {
+        int low, int high, mid;
+        //定义最低下标为记录首位
+        low = 0;
+        //定义最高下标为记录末尾
+        high = n - 1;
+        while (low <= high)
+        {
+            //折半
+            mid = (low + high) / 2;
+            //若查找值比中值小
+            if (key < a[mid])
+            {
+                //最高位下标调整到中位下标小一位
+                high = mid - 1;
+            }
+            //若查找值比中值大
+            else if (key > a[mid])
+            {
+                //最低下标调整到中位下标大一位
+                low = mid + 1;
+            }
+            else
+                //若相等则说明mid即为要查找的位置
+                return mid;
+        }
+        return -1;
+    }
+</code></pre>
+</p>
+
+<p>
+    2.插值查找
+    （1）基本思想：基于二分查找算法，将查找点的选择改进为自适应选择，可以提高查找效率。当然，差值查找也属于有序查找。<br>
+    （2）适用情况：对于表长较大，而关键字分布又比较均匀的查找表来说，插值查找算法的平均性能比折半查找要好的多。<br>
+    反之，数组中如果分布非常不均匀，那么插值查找未必是很合适的选择。<br>
+    （3）代码实现：
+    <pre><code>
+        //插值查找
+        int Interpolation_Search(int* a, int n, int key)//n表示数组大小
+        {
+            int low, high, mid;
+            low = 0;
+            high = n-1;
+            while (low <= high)
+            {
+                mid = low + (high - low) * (key - a[low]) / (a[high] - a[low]);//插值
+                if (key < a[mid])
+                    high = mid - 1;
+                else if (key > a[mid])
+                    low = mid + 1;
+                else
+                    return mid;
+            }
+            return -1;
+        }
+    </code></pre>
+</p>
+<p>
+    3.斐波那契查找
+    基本思想：斐波那契查找是一种基于斐波那契数列的查找算法。它在有序数组中进行查找，通过使用斐波那契数列中的数字来减少查找范围。该算法利用斐波那契数列的特性来划分查找范围，从而达到高效查找的目的。<br>
+    斐波那契查找的步骤：<br>
+[1]构建斐波那契数列：找到一个斐波那契数 𝐹（𝑘），使得 F(k) 大于或等于数组的长度 n。<br>
+[2]初始化变量：设置初始查找范围，定义初始的低位索引 𝑙𝑜𝑤 和高位索引 high。<br>
+[3]计算分割点：计算当前查找范围的分割点 mid，初始值为 low+F(k−2)，因为斐波那契查找将查找范围分成两个部分，分别接近 F(k−1) 和 F(k−2)。<br>
+[4]比较和调整范围：比较目标值和分割点的值，如果目标值小于分割点的值，则调整高位索引到 mid−1，并更新斐波那契数列索引。<br>
+如果目标值大于分割点的值，则调整低位索引到 mid+1，并更新斐波那契数列索引。<br>
+如果目标值等于分割点的值，则查找成功。<br>
+[5]继续查找：重复以上步骤，直到找到目标值或查找范围为空。<br>
+（1）如果目标元素小于数组中 fibM_2 位置的元素，则继续在数组左半部分查找。<br>
+（2）如果目标元素大于数组中 fibM_2 位置的元素，则继续在数组右半部分查找。<br>
+（3）如果相等，则找到目标元素。<br>
+<pre><code>
+    // 构建斐波那契数列
+    void Fibonacci(int *fib, int size) {
+        fib[0] = 0;
+        fib[1] = 1;
+        for (int i = 2; i < size; i++) {
+            fib[i] = fib[i - 1] + fib[i - 2];
+        }
+    }
+    
+    // 斐波那契查找
+    int Fibonacci_Search(int *a, int n, int key) {
+        int fib[20];
+        Fibonacci(fib, 20);
+    
+        int k = 0;
+        while (fib[k] < n) {
+            k++;
+        }
+    
+        int low = 0;
+        int high = n - 1;
+    
+        // 用数组扩展方式，增加元素使其长度为斐波那契数
+        int *temp = (int *)malloc((fib[k] - 1) * sizeof(int));
+        for (int i = 0; i < n; i++) {
+            temp[i] = a[i];
+        }
+        for (int i = n; i < fib[k] - 1; i++) {
+            temp[i] = a[n - 1];
+        }
+    
+        while (low <= high) {
+            int mid = low + fib[k - 1] - 1;
+    
+            if (key < temp[mid]) {
+                high = mid - 1;
+                k = k - 1;
+            } else if (key > temp[mid]) {
+                low = mid + 1;
+                k = k - 2;
+            } else {
+                if (mid < n) {
+                    free(temp);
+                    return mid;
+                } else {
+                    free(temp);
+                    return n - 1;
+                }
+            }
+        }
+    
+        free(temp);
+        return -1;
+    }
+    
+</code></pre>
+
+</p>
+<p>
+4.二叉排序树
+（1）基本思想：二叉排序树（Binary Search Tree，BST）是一种特殊的二叉树，它满足以下性质：<br>
+[1]对于树中的每个节点，其左子树中的所有节点的值都小于该节点的值。<br>
+[2]对于树中的每个节点，其右子树中的所有节点的值都大于该节点的值。<br>
+[3]左、右子树也分别为二叉排序树。<br>
+[4]删除一个节点时有三种情况：<br>
+该节点是叶子节点，直接删除即可。<br>
+该节点只有一个子节点，用该子节点替代删除节点。<br>
+该节点有两个子节点，用其右子树的最小值或左子树的最大值替代删除节点，然后删除替代节点。<br>
+[5]对二叉排序树进行中序遍历，可以得到一个有序的序列
+(2)代码实现：
+<pre><code>
+    typedef struct TreeNode {
+        int key;
+        struct TreeNode *left, *right;
+    } TreeNode;
+    
+    // 创建一个新节点
+    TreeNode* createNode(int key) {
+        TreeNode* newNode = (TreeNode*)malloc(sizeof(TreeNode));
+        newNode->key = key;
+        newNode->left = newNode->right = NULL;
+        return newNode;
+    }
+    
+    // 插入节点
+    TreeNode* insert(TreeNode* node, int key) {
+        if (node == NULL) return createNode(key);
+    
+        if (key < node->key)
+            node->left = insert(node->left, key);
+        else if (key > node->key)
+            node->right = insert(node->right, key);
+    
+        return node;
+    }
+    
+    // 查找节点
+    TreeNode* search(TreeNode* root, int key) {
+        if (root == NULL || root->key == key)
+            return root;
+    
+        if (key < root->key)
+            return search(root->left, key);
+    
+        return search(root->right, key);
+    }
+    
+    // 寻找最小值节点
+    TreeNode* findMin(TreeNode* node) {
+        while (node->left != NULL) node = node->left;
+        return node;
+    }
+    
+    // 删除节点
+    TreeNode* deleteNode(TreeNode* root, int key) {
+        if (root == NULL) return root;
+    
+        if (key < root->key) {
+            root->left = deleteNode(root->left, key);
+        } else if (key > root->key) {
+            root->right = deleteNode(root->right, key);
+        } else {
+            if (root->left == NULL) {
+                TreeNode* temp = root->right;
+                free(root);
+                return temp;
+            } else if (root->right == NULL) {
+                TreeNode* temp = root->left;
+                free(root);
+                return temp;
+            }
+    
+            TreeNode* temp = findMin(root->right);
+            root->key = temp->key;
+            root->right = deleteNode(root->right, temp->key);
+        }
+    
+        return root;
+    }
+    
+    // 中序遍历
+    void inorderTraversal(TreeNode* root) {
+        if (root != NULL) {
+            inorderTraversal(root->left);
+            printf("%d ", root->key);
+            inorderTraversal(root->right);
+        }
+    }
+    
+</code></pre>
+
+</p>
+<p>
+    5.平衡二叉树（AVL树）
+    平衡二叉树（Balanced Binary Tree）是一种二叉树，其特点是任意节点的左子树和右子树的高度差不超过1。<br>
+    这种结构确保了树的高度尽可能低，从而保证了在最坏情况下的查找、插入和删除操作的时间复杂度为O(log n)。<br>
+    性质：
+    插入：
+插入节点后，可能会破坏AVL树的平衡，因此需要通过旋转来恢复平衡。
+旋转分为单旋转和双旋转：<br>
+（1）单右旋用于修复“左左”不平衡情况。<br>
+(2) 单左旋用于修复“右右”不平衡情况。<br>
+(3)左右旋用于修复“左右”不平衡情况<br>
+(4)右左旋用于修复“右左”不平衡情况。<br>
+  删除：
+删除节点后，也可能会破坏AVL树的平衡，需要通过旋转来恢复平衡。<br>
+查找：
+与普通二叉查找树相同，通过比较节点值递归查找。<br>
+代码实现：
+<pre><code>
+    typedef struct AVLNode {
+        int key;
+        struct AVLNode* left;
+        struct AVLNode* right;
+        int height;
+    } AVLNode;
+    
+    int height(AVLNode* N) {
+        if (N == NULL)
+            return 0;
+        return N->height;
+    }
+    
+    int max(int a, int b) {
+        return (a > b) ? a : b;
+    }
+    
+    AVLNode* newNode(int key) {
+        AVLNode* node = (AVLNode*)malloc(sizeof(AVLNode));
+        node->key = key;
+        node->left = NULL;
+        node->right = NULL;
+        node->height = 1;
+        return(node);
+    }
+    
+    AVLNode* rightRotate(AVLNode* y) {
+        AVLNode* x = y->left;
+        AVLNode* T2 = x->right;
+    
+        x->right = y;
+        y->left = T2;
+    
+        y->height = max(height(y->left), height(y->right)) + 1;
+        x->height = max(height(x->left), height(x->right)) + 1;
+    
+        return x;
+    }
+    
+    AVLNode* leftRotate(AVLNode* x) {
+        AVLNode* y = x->right;
+        AVLNode* T2 = y->left;
+    
+        y->left = x;
+        x->right = T2;
+    
+        x->height = max(height(x->left), height(x->right)) + 1;
+        y->height = max(height(y->left), height(y->right)) + 1;
+    
+        return y;
+    }
+    
+    int getBalance(AVLNode* N) {
+        if (N == NULL)
+            return 0;
+        return height(N->left) - height(N->right);
+    }
+    
+    AVLNode* insert(AVLNode* node, int key) {
+        if (node == NULL)
+            return(newNode(key));
+    
+        if (key < node->key)
+            node->left = insert(node->left, key);
+        else if (key > node->key)
+            node->right = insert(node->right, key);
+        else
+            return node;
+    
+        node->height = 1 + max(height(node->left), height(node->right));
+    
+        int balance = getBalance(node);
+    
+        if (balance > 1 && key < node->left->key)
+            return rightRotate(node);
+    
+        if (balance < -1 && key > node->right->key)
+            return leftRotate(node);
+    
+        if (balance > 1 && key > node->left->key) {
+            node->left = leftRotate(node->left);
+            return rightRotate(node);
+        }
+    
+        if (balance < -1 && key < node->right->key) {
+            node->right = rightRotate(node->right);
+            return leftRotate(node);
+        }
+    
+        return node;
+    }
+    
+    void preOrder(AVLNode* root) {
+        if (root != NULL) {
+            printf("%d ", root->key);
+            preOrder(root->left);
+            preOrder(root->right);
+        }
+    }
+    
+</code></pre>
+
+</p>
+</div>
+</body>
+
+</html>

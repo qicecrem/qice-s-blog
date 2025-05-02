@@ -1,0 +1,33 @@
+awt:窗口框架，从不同平台的窗口系统中抽取共同组件，当程序运行时将这些组件的创建和动作委托给程序所运行的平台。
+简而言之，当使用awt编写图形界面时，程序仅指定界面组件的位置和行为，并未提供真正实现，JVM调用操作系统本地的图形化界面来创建和平台一致的对等体。
+AWT继承体系：
+Component：代表一个能以图形化方式显示出来，并可与用户交互的对象，例如按钮、文本框、菜单、对话框等。
+MenuComponent：代表图形化界面的菜单组件，包括MenuBar，Menultem等子类
+ 其中Container是一种特殊的Component，它可以容纳其他Component，例如Frame、Panel、Window等。
+ 重要接口LayoutManager，如果一个容器中有多个组件，那么容器就需要使用LayoutManager来管理这些组件的位置和大小。
+  
+  Component作为基类提供以下方法设置组件的位置和大小，可见性：
+     SetLocation(int x, int y)：设置组件的位置
+     SetSize(int width, int height)：设置组件的大小
+     SetBounds(int x, int y, int width, int height)：设置组件的位置和大小
+     SetVisible(boolean visible)：设置组件的可见性
+Container作为容器提供以下方法访问容器的组件：
+     Component add(Component comp)：添加一个组件到容器中
+     Component getComponentAt(int x，int y)：返回指定的组件
+     int getComponentCount（）；返回容器的组件数量
+     Component getComponents()：返回容器中的所有组件
+Panel容器不能独立存在必须依附windows存在
+ScrollPane作为容器，提供滚动条功能，可以包含多个组件。
+FlowLayout:组件像水流一样向某方向流动，遇到边界自动换行。
+  FlowLayout（）使用默认的对齐方式及默认的垂直水平间距，创建FlowLayout管理器对象。
+  FlowLayout（int align）：使用指定的对齐方式及默认的垂直水平间距，创建FlowLayout管理器对象。
+  FlowLayout（int align，int hgap，int vgap）：使用指定的对齐方式及垂直,水平间距，创建FlowLayout管理器对象。
+  FlowLayout.LEFT：左对齐
+   FlowLayout.RIGHT：右对齐
+   FlowLayout.CENTER：居中对齐
+   FlowLayout中组件间距通过参数调整，默认5像素。
+BorderLayout:将容器分为EAST、WEST、NORTH、SOUTH、CENTER五个区域，组件默认居中显示。
+  NORTH,SOUTH,CENTER区域水平调整，EAST,WEST，CENTER区域垂直调整。
+  向同一个区域添加多个组件时，后放入的组件会覆盖前面的组件。
+    BorderLayout（）：使用默认的水平间距，垂直间距创建BorderLayout管理器对象。
+    BorderLayout（int hgap，int vgap）：使用指定的水平间距，垂直间距创建BorderLayout管理器对象。

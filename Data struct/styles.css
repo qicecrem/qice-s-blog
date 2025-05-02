@@ -1,0 +1,22 @@
+
+img{max-width: auto;max-height:auto;}
+
+pre {
+    background-color: #f4f4f4;
+    padding: 10px;
+    border: 1px solid #ccc;
+    overflow: auto;
+}
+
+code {
+    font-family: monospace;
+}
+
+body{
+    margin-left: 30px;
+    margin-right: 20px;
+
+}
+div {
+    margin:0 auto;
+}

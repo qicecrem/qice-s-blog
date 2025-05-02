@@ -1,0 +1,652 @@
+HTML
+图片标签  <img>
+src:图片路径（相对路径或绝对路径）
+width:图片宽度（像素/百分比）(px或%)
+height:图片高度（像素/百分比）
+alt:图片描述
+./ 代表当前目录
+../ 代表上一级目录
+
+标题标签  <h1>~<h6>
+
+水平线标签  <hr>
+
+<span> 没有语义 的布局标签 特点：不换行，不影响布局，可以嵌套，宽高由内容决定
+
+<div> 没有语义的布局标签 特点：独占一行，宽度是父元素的宽度，高度由内容决定，可以设置宽高
+css选择器：
+元素选择器：标签名{……}
+id选择器：#id{……}
+类选择器：.class{……}
+优选级：id>class>元素选择器
+
+css属性：
+font-size:字体大小
+font-weight:字体粗细
+color:字体颜色
+text-deeoration:字体装饰，none、underline、overline、line-through
+line-height:行高
+text-align:对齐方式，left、right、center、justify
+text-indent:首行缩进
+broder：设置边框属性
+padding：内边距
+margin：外边距
+
+css盒子模型：
+content:内容
+padding:内边距
+border:边框
+margin:外边距
+
+超链接  <a>
+href:链接地址
+target:链接打开方式（_blank、_self）
+
+音频标签  <audio>
+src:音频路径
+controls:显示播放控制按钮
+
+视频标签  <video>
+src:视频路径
+controls:显示播放控制按钮
+width:视频宽度
+height:视频高度
+
+换行符  <br>
+
+段落标签  <p>
+
+文本加粗  <strong> 或者 <b>
+
+空格占位符： &nbsp;
+
+表格标签：
+<table> 定义表格整体，可以包裹多个<tr> broder:设置表格边框的宽度，width:设置表格宽度，cellspacing:设置单元之间的空间。
+<tr> 定义表格行，可以包裹多个<td> 
+<td> 定义表格单元格,可以包裹过内容，如果是表头可以用th标签。
+
+标点标签：
+<form> 定义表格单元格
+表单项：
+<input> 定义输入框，type:输入框类型（text 文本框单行输入段，password 密码框，radio 单选按钮，checkbox 复选框，date/time/datetime-local 日期/时间/日期时间，number 数字输入框，email 邮箱输入框，url 网址输入框，number 数字输入框，range 滑动输入框，hidden 隐藏输入框，search 搜索框，submit 提交按钮，reset 重置按钮，file 文件上传按钮），value:默认值，name:输入框名称，size:输入框大小，maxlength:最大输入长度，readonly:是否只读，disabled:是否禁用。
+<button> 定义按钮，type:按钮类型，value:按钮名称。
+<select> 定义下拉列表，name:下拉列表名称，size:下拉列表显示的选项个数。
+<textarea> 定义文本域，name:输入框名称，rows:输入框显示的行数，cols:输入框显示的列数。
+属性：
+action:表单提交的地址
+method：表单提交的方式，GET（表单数据拼接在url后面，大小有限制）、POST（表单数据放在请求体中，大小无限制）。
+
+JSON-基础语法：
+JSON（JavaScript Object Notation）是一种轻量级的数据交换格式。它基于ECMAScript的一个子集。
+JSON的语法规则：
+JSON数据在JavaScript中表示为对象，对象由键-值对组成。
+JSON数据在JavaScript中解析为对象，对象可以是数组或对象。
+JSON数据在JavaScript中序列化为字符串，字符串可以被存储或传输。
+JSON数据格式：
+JSON数据格式是一个严格的子集，它只包含以下数据类型：
+对象（Object）：{}
+数组（Array）：[]
+字符串（String）："..."
+数值（Number）：123
+布尔值（Boolean）：true/false
+null（Null）：null
+JSON数据格式的语法：
+JSON数据格式的语法非常简单，它只包含以下几种数据类型：
+对象：
+{
+  "key1": "value1",
+  "key2": "value2",
+  "key3": "value3"
+}
+数组：
+[
+  "value1",
+  "value2",
+  "value3"
+]
+字符串：
+"This is a string."
+数值：
+123
+布尔值：
+true/false
+
+JSON字符串转化为js对象：
+var jsObject=JSON.parse(jsonString);
+
+js对象转化为JSON字符串：
+var jsonstr=JSON.stringify(jsObject);
+
+
+Maven:
+作用：
+1.依赖管理：Maven可以自动管理项目中所依赖的jar包，并自动下载jar包到本地仓库，避免手动管理jar包。
+2.统一项目结构：Maven可以统一项目的结构，使项目结构更加清晰，更加规范。
+3.项目构建：Maven可以自动构建项目，包括编译、测试、打包、发布等。
+maven依赖配置：
+1.在pom.xml中编写<dependencies>标签。
+2.在<dependencies>中使用<dependency>引入坐标。
+3.定义坐标的属性：groupId、artifactId、version、scope。
+4，点击刷新，maven会自动下载jar包到本地仓库。
+maven依赖传递
+排除依赖：<exclusions>标签中<exclusion>标签中写上需要排除依赖的坐标。
+
+依赖范围：默认情况可以在任何地方使用。可以通过<scope>属性指定依赖的范围，有以下几种范围：
+1.主程序范围有效（main文件夹范围内）
+2.测试范围有效（test文件夹范围内）
+3.是否参与打包运行（package指令范围内）
+scope值：
+1.compile（默认值）：主程序，测试程序，打包（运行）都有效。
+2.test：测试程序有效。
+3.provided：主程序，测试程序有效。
+4.runtime：测试程序，打包（运行）时有效。
+
+maven生命周期：
+1.clean：清理项目
+2.compile：编译项目
+3.test：测试项目
+4.package：打包项目
+5.install：安装项目到本地仓库
+
+HTTP-请求数据格式
+请求行：（请求数据的第一行）
+请求方法  请求路径  HTTP版本
+GET /index.html HTTP/1.1
+请求头：（请求数据的第二行开始，以空行结束）（格式 key：value）
+Host:www.example.com
+User-Agent:Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.36
+Accept:text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8
+Accept-Encoding:gzip, deflate, sdch, br
+Accept-Language:zh-CN,zh;q=0.8
+请求体：POST请求数据的最后一部分（格式：表单数据、JSON数据、XML数据）
+表单数据：
+name=value&name=value
+JSON数据：
+{
+  "name": "value",
+  "name": "value"
+}
+XML数据：
+<root>
+  <name>value</name>
+  <name>value</name>
+请求方式-GET：请求参数在请求行中，没有请求体，大小有限
+请求方式-POST：请求参数在请求体中，大小无限
+
+HTTP-响应数据格式
+响应行：（响应数据的第一行）
+HTTP版本  状态码  状态描述
+HTTP/1.1 200 OK
+响应头：（响应数据的第二行开始，以空行结束）（格式 key：value）
+Content-Type:text/html;charset=UTF-8
+Content-Length:12345
+响应体：响应数据的最后一部分，存放响应数据（格式：HTML、JSON、XML数据）
+HTML数据：
+<html>
+  <body>
+    <h1>Hello World</h1>
+  </body>
+</html>
+JSON数据：
+{
+  "name": "value",
+  "name": "value"
+}
+XML数据：
+<root>
+  <name>value</name>
+  <name>value</name>
+状态码：
+1xx：信息提示
+2xx：成功
+3xx：重定向
+4xx：客户端错误
+5xx：服务器错误
+200 OK：请求成功
+404 Not Found：请求资源不存在
+500 Internal Server Error：服务器内部错误
+
+Web服务器：
+对http协议进行封装，简化web开发。
+部署web项目，对外提供网上信息浏览服务。
+Tomcat：
+一个轻量级的Web服务器，支持servlet、jsp等少量javaEE规范。
+也称为web容器、servlet容器。
+
+响应参数：
+简单参数：
+定义方法形参，请求参数与形参变量名一致。
+如果不一致，通过@RequestParam手动映射。
+
+实体参数：
+请求参数名，与实体对象的属性名一致，会自动接受封装。
+
+数组集合参数：
+数组：请求参数名与数组名一致，直接封装。
+集合：请求参数名与集合名一致，@RequestParam绑定关系。
+
+日期参数：
+@DateTimeFormat注解，自动转换日期格式。
+
+JSON参数：
+@RequestBody注解，自动将请求体中的JSON数据转换为对象。
+
+路径参数：
+@PathVariable注解，自动将路径参数映射到方法参数。
+
+@ResponseBody注解：
+将方法的返回值直接响应,如果返回值类型是实体对象，则会自动转换为JSON数据。
+@RestController=@Controller+@ResponseBody
+
+统一响应结果
+
+三层架构：
+1.controller：控制器，负责处理请求，调用业务逻辑，返回响应结果。
+2.service：业务逻辑层，处理业务逻辑，调用持久层。
+3.dao：持久层（数据访问层），负责数据访问操作，包括数据增删改查，调用数据库。
+
+分层解耦：
+控制反转：（IOC）
+对象的创建控制权由程序自身转移到外部（容器）
+依赖注入：（DI）
+容器为程序提供运行时，所依赖的资源。
+Bean对象：
+由IOC容器创建，管理，并提供给程序使用。
+
+要把某个对象交给容器管理，需要在对应的类上加上如下注解：
+@Component 声明bean的基础注解 不属于以下三类时使用
+@Controller 标注在控制器类上
+@Service 标注在业务逻辑类上
+@Repository 标注在数据访问类上
+
+依赖注入的注解：
+@Autowired 默认按照类型自动装配。
+
+如果存在多个同类型的bean：
+@Primary 注解，指定首选bean。
+@Autowired+@Qualifier("name") 指定bean的名称。
+@Resource(name="name") 指定bean的名称。
+
+
+DDL(数据库操作)
+查询所有数据库： show databases;
+查询当前数据库： select database();
+使用数据库： use 数据库名;
+创建数据库： create database[if not exists] 数据库名;
+删除数据库： drop database[if exists] 数据库名;
+上述database可以替换为schema。
+
+创建表：
+create table 表名（
+  字段名 数据类型 [约束条件] [comment 注释],
+  ）[comment 注释];
+约束：作用于表中字段的规则，用于限制存储在表中的数据。
+目的：保证数据的正确性、完整性、一致性。
+非空约束： 限制该字段值不能为空  not null
+唯一约束： 限制该字段值必须唯一，不允许重复  unique
+主键约束： 一行数据的唯一标识，不允许重复  primary key
+外键约束： 用于两个表之间的关系，保证数据的一致性  foreign key
+默认约束： 保存数据时，如果未指定该字段的值，则使用默认值  default
+
+mysql数据类型：
+tinyint：1字节整型
+smallint：2字节整型
+int：4字节整型
+bigint：8字节整型
+decimal：固定精度的浮点数
+float：单精度浮点数
+double：双精度浮点数
+char：定长字符串
+varchar：变长字符串
+text：长文本
+date：日期
+time：时间
+datetime：日期时间
+enum：枚举类型
+set：集合类型
+
+DDL(表操作)
+查询当前数据库所有表 :show tables;
+查询表结构：desc 表名;
+查询建表语句：show create table 表名;
+添加字段：alter table 表名 add 字段名 数据类型 [约束条件] [comment 注释];
+修改字段类型：alter table 表名 modify 字段名 数据类型 [约束条件] [comment 注释];
+修改字段名和字段类型：alter table 表名 change 旧字段名 新字段名 数据类型 [约束条件] [comment 注释];
+删除字段：alter table 表名 drop column 字段名;
+修改表名：rename table 旧表名 to 新表名;
+删除表：drop table [if exists] 表名;
+
+DML(数据操作)
+指定字段添加数据：insert into 表名 (字段名1,字段名2) values (值1,值2);
+全部字段添加数据：insert into 表名 values (值1,值2,值3,值4);
+指定字段批量添加数据：insert into 表名 (字段名1,字段名2) values (值1,值2),(值3,值4),(值5,值6);
+全部字段批量添加数据：insert into 表名 values (值1,值2,值3,值4),(值5,值6,值7,值8);
+修改数据：update 表名 set 字段名1=值1,字段名2=值2 where 条件;（没有条件语句回修修改所有数据）
+删除数据：delete from 表名 where 条件;（没有条件语句回修删除所有数据）
+
+DQL（查询操作）
+查询多个字段：select 字段名1,字段名2 from 表名;
+查询所有字段：select * from 表名;
+设置别名：select 字段名1 [as 别名1],字段名2 [as 别名2] from 表名;
+去除重复记录：select distinct 字段名 from 表名;
+条件查询：select 字段名 from 表名 where 条件;{
+<> 或 != :不等于
+between……and……   在某个范围内（包含边界）
+in（值1，值2，……）  列表中的值（多选一）
+is null   为空
+is not null   不为空
+like   模糊查询（%表示任意多个字符，_表示单个字符）
+}
+
+分组查询：
+聚合函数：将一列数据作为一个整体，进行纵向计算
+select 聚合函数 (字段名) from 表名 ；{count:统计数量 max:最大值 min:最小值 avg:平均值 sum:求和}
+分组查询： select 字段列表 from 表名 [where 条件] group by 字段名 [having 分组后过滤条件];{where 和 having区别：
+where 用于在分组前过滤数据，having 用于在分组后过滤数据  ；  where 不能对聚合函数进行判断}
+
+排序查询：
+条件查询：select 字段名 from 表名 [where 条件] [group by 字段名] order by 字段名 [排序方式:asc|desc];{asc:升序 desc:降序}
+
+分页查询：
+select 字段列表 from 表名 [where 条件] [group by 字段名] [order by 字段名] limit 开始,每页记录数;
+起始索引从0开始，起始索引=（当前页码-1）*每页记录数。
+如果查询的是第一页数据，起始索引可以省略。
+
+if(表达式,真值,假值)：但表达式为true时，返回真值，否则返回假值。
+case expr when value1 then result1 when value2 then result2... else resultN end：  
+根据表达式的值，选择对应的结果。
+
+外键约束：
+在两个表中建立关联关系，保证数据的一致性。
+创建表时：
+create table 表名（
+  字段名 数据类型 [约束条件] [comment 注释],
+  ...
+  [constraint] [外键名称] foreign key (外键字段名) references 主表(字段名)
+  ）； 
+  建完表后：
+   alter table 表名 add constraint [外键名称] foreign key (外键字段名) references 主表(字段名)；
+   缺点:仅用于单数据库，不跨数据库。
+        影响增删改查性能。
+推荐使用逻辑外键。
+
+多表查询：
+隐式内连接：select 字段列表 from 表名1,表名2 where 表名1.字段名=表名2.字段名;
+显示内连接：select 字段列表 from 表名1 [inner] join 表名2 on 表名1.字段名=表名2.字段名;
+左外连接：select 字段列表 from 表名1 left [outer]join 表名2 on 表名1.字段名=表名2.字段名;
+右外连接：select 字段列表 from 表名1 right [outer]join 表名2 on 表名1.字段名=表名2.字段名;
+
+子查询：DQL语句中嵌套select语句，称为子查询。
+形式：select * from t1 where column1 = （select column1 from t2 ……）；
+子查询外部语句可以是select、update、delete、insert等语句，最常见的是select。  
+标量子查询：子查询返回的结果为单个值（数字、字符串、日期）。【常用操作符 = <> > >= < <=】
+列子查询：子查询返回的结果为一列值。【常用操作符 in not in】
+行子查询：子查询返回的结果为一行值。【常用操作符 = 、<>、 in 、not in】
+表子查询：子查询返回的结果为一张表。【常用操作符 in】
+
+事务：一组操作集合，要么全部成功，要么全部失败。
+事务的四个特性：原子性、一致性、隔离性、持久性。
+开启事务：start transaction;/begin；
+提交事务：commit；
+回滚事务：rollback；
+
+索引：帮助数据库高效获取数据的数据结构。
+优点：提高查询效率、降低数据库负载、加快数据排序速度。
+缺点：占用磁盘空间、降低更新速度。
+MYSQL索引结构默认为B+树。
+创建索引：create [unique] index 索引名 on 表名 (字段名……);
+查看索引：show index from 表名;
+删除索引：drop index 索引名 on 表名;
+
+
+MyBatis：
+是一个持久层框架，它支持定制化SQL、存储过程以及高级映射。
+
+JDBC:是java语言操作关系型数据库的API。
+
+数据库连接池：
+作用：减少数据库连接创建、释放、关闭造成的系统开销，提高数据库连接的利用率。
+标准接口：javax.sql.DataSource。
+  由官方提供的数据库连接池接口，由第三方组织提供实现。
+  功能：获取链接 Connection getConnection() throws SQLException;
+
+lombok:是一个java类库，通过注解自动生成get、set方法、toString方法、equals方法、hashCode方法等。
+@Getter/@Setter：生成get、set方法。
+@ToString：生成toString方法。
+@EqualsAndHashCode：生成equals和hashCode方法。
+@Data ：相当于同时使用了@Getter、@Setter、@ToString、@EqualsAndHashCode。
+@NoArgsConstructor：生成无参构造方法。
+@AllArgsConstructor：生成全参构造方法。
+
+预编译：
+性能高
+更安全（防止SQL注入）
+
+参数占位符：
+#{……} 执行SQL时，会将#{……}替换为？，生成预编译SQL，会自动设置参数值。
+使用时机：参数传递，都使用#{……}
+
+${……} 拼接SQL。直接将参数拼接在SQL语句中，存在SQL注入风险。
+使用时机：如果对表名，列表进行动态设置时使用。
+
+主键返回：
+描述：在数据添加成功后，需要获取插入数据库数据的主键值。
+实现：
+在@Insert前加上：@ @Options(useGeneratedKeys = true,keyProperty = "id")
+
+数据封装：
+实体类属性名和数据库表查询返回的字段名一致，mybatis会自动封装。
+若不一致，不能自动封装，需要手动封装。
+方法1：起别名：在查询语句中，将字段名起别名为实体类属性名。
+select id as id,name as name from table_name;
+方法2：通过@Results 及 @Result 注解，指定列名和属性名的映射关系。
+@Results({
+    @Result(property = "id", column = "id"),
+    @Result(property = "name", column = "name")
+})
+方法3：开启驼峰命名：在mybatis-config.xml中，开启驼峰命名规则，mybatis会自动将数据库表字段转为驼峰命名。
+mybatis.configuration.map-underscore-to-camel-case=true
+
+通过XML映射文件配置SQL语句：
+规范：
+1.XML文件的名称与Mapper接口名称一致，并且将XML文件和Mapper接口放置在相同包下（同包同名）
+2.XML文件中的namespace属性的值必须和Mapper接口的全限定名一致。
+3.XML文件中的SQL语句的id属性的值必须和Mapper接口中定义的SQL方法名一致，并保持返回类型一致。
+
+Mybati动态SQL：
+<if>:用于判断条件是否成立，使用test属性进行条件判断，如果为true则拼接SQL，否则不拼接。
+<where>:where 元素只会在子元素有内容的情况下才插入where子句。而且会自动去除子句开头的AND或OR关键字。
+<set>:动态地在首行插入SET关键字，并会删除额外的逗号。（用在update语句中）
+<foreach>:用于遍历集合，并拼接SQL。collection:集合名称，item：集合遍历出来的元素/项，separator:每一次遍历使用的分隔符，
+                                 open：遍历开始前拼接的片段，close遍历结束后拼接片段。
+
+<sql>:定义可重用的SQL片段。
+<include>:通过属性refid引用其他的sql语句。
+
+yml配置文件：
+基本语法：
+大小写敏感
+数值前必须有空格，作为分隔符
+使用缩进表示层级关系,缩进时，不许使用Tab，只能用空格。
+缩进空格数目不重要，只要相同层级的元素左侧对齐即可。
+#表示注释，从#开始到行尾，都会被忽略。
+yml数据格式：
+对象/Map：
+user：
+  name: Tom
+  age: 20
+数组/List
+
+users:  
+  - Tom
+  - Jerry
+
+
+会话技术：
+ 会话：用户打开浏览器，访问web应用，就产生了一个会话，直到一方断开连接，会话结束。一次会话可以包含多次请求和响应。
+ 会话跟踪：一种维护浏览器状态的方法，服务器需要识别多次请求是否来自同一浏览器，以便在同一次会话的多次请求间共享数据。
+ Cookie:是服务器发送到浏览器并保存在本地的小段文本数据，用于跟踪会话。
+     优点：Http协议是中支持的技术。
+     缺点：移动端无法使用
+           不安全，用户可以禁用
+           Coolies不能跨域
+  
+Session:是服务器端保存的一个数据结构，用来跟踪用户会话，存储用户信息。
+     优点：安全性高
+     缺点：服务器集群环境下无法直接使用Session
+          Cookie的缺点
+
+
+     
+令牌技术：令牌：是一种用于认证和授权的字符串，通常包含随机数、哈希值或时间戳。
+     优点：安全性高，防止跨站请求伪造
+           支持pc和移动端
+           解决集群环境下的认证问题
+           减轻服务器存储压力
+      缺点：需要自己实现
+
+
+JWT令牌
+组成：
+第一部分：头部（header）记录令牌类型和签名算法
+第二部分：载荷（payload）存储实际需要传递的数据
+第三部分：签名（signature）防止Token被篡改，确保安全性。
+应用场景：登录
+
+
+过滤器：
+作用：拦截请求，对请求进行预处理，如身份验证、权限验证、日志记录等。
+
+拦截器（Interceptor）：
+动态拦截方法调用机制，类似于过滤器，由Spring框架提供。
+作用：拦截请求，对请求进行预处理，如身份验证、权限验证、日志记录等。
+拦截路径：/* 一级路径 能匹配/demp，/login，不能匹配/demp/user
+         /** 任意级路径 能匹配/demp/user，/login，/demp/user/add，/demp/user/delete等
+         /demp/* 匹配/demp下的一级路径  能匹配/demp/1 不能匹配/demp/user/1
+         /demp/** 匹配/demp下的任意路径 能匹配/demp/user/1 能匹配/demp/user/add/1
+
+
+ Spring事务管理
+ ：@Transactional注解
+ 位置：service层的方法，类，接口上。
+ 作用：将当前方法交给spring进行事务管理，方法执行前，开启事务；成功执行完毕，提交事务；出现异常
+ rollbackFor:默认情况下，只有出现RuntimeException才会回滚事务，rollbackFor属性可以指定抛出哪些异常需要回滚事务   
+            例如：@Transactional(rollbackFor = Exception.class)
+  propagation 事物的传播行为：指的是当一个事务被另一个事务方法调用时，该事务方法应该如何进行事物控制。
+  属性值：REQUIRED（默认值）：如果当前存在事务，则加入该事务；如果当前没有事务，则创建一个新的事务。
+         REQUIRES_NEW：创建一个新的事务，无论当前是否存在事务。(但不希望事务间相互影响时使用)
+
+
+AOP概述：
+AOP：面向特定方法的编程，是一种面向对象编程的技术。
+作用：在不修改源代码的前提下，增强目标代码的功能。
+场景：案例部分功能运行缓慢，定位执行耗时较长的业务方法，此时需要统计每一个业务方法的执行耗时。
+实现：动态代理是面向切面编程最主流的实现。而SpringAOP是spring框架的高级技术，旨在管理bean对象的过程中，
+      主要通过底层的动态代理机制，对特定的方法进行编程。
+优势：代码无入侵，减少代码重复，提高开发效率，维护方便。
+
+AOP核心概念
+连接点：Joinpoint，可以被AOP控制的方法（暗含方法执行的相关信息）
+通知：Advice，指那些重复的逻辑，也就是共性功能。
+切入点：PointCut，匹配连接点的条件，通知仅会在切入点方法执行时被引用。
+切面：Aspect，描述通知与切入点的对应关系。
+目标对象：Target，通知所应用的对象。
+通知类型：
+@Around：环绕i通知，在目标方法调用前后都执行。
+@Before：前置通知，在目标方法调用前执行。
+@AfterReturning：后置通知，在目标方法正常返回后执行。
+@AfterThrowing：异常通知，在目标方法抛出异常后执行。
+@After：最终通知，无论目标方法是否抛出异常，都会执行。
+注意事项：
+1.@Around环绕通知需要自己调用ProceedingJoinPoint.proceed()方法，才会执行目标方法。
+2.@Around环绕通知方法的返回值，必须指定Object，来指定原始方法的返回值。
+通知顺序：
+1.不同切面类中，默认按照切面类的类名字母排序：
+   目标方法前的通知方法：字母排名靠前的通知方法先执行。
+   目标方法后的通知方法：字母排名靠前的通知方法后执行。
+2.用@Order（数字）加载切面类上来控制顺序
+   目标方法前的通知：数字小的先执行
+   目标方法后的通知：数字小的后执行
+切入点表达式：
+作用：决定项目中哪些方法加入通知。
+1.execution(方法签名)：
+    execution（访问修饰符？返回值 包名.类名.方法名(方法参数) throws 异常？）
+    ？表示可以省略
+    *：单个独立的任意字符，可以通配任意返回值，包名，类名，方法名，任意类型的一个参数，也可以通配包，类，方法名的一部分。
+    ..:多个连续的任意字符，可以通配任意层级的包，或任意类型，任意个数的参数。
+    例如：execution(* com.example.service.*.*(..)) 匹配com.example.service包及其子包下的所有类中所有方法。
+2.@annotation(注解类名)：
+    用于匹配标识有特定注解的方法。
+    例如：@annotation（com.example.anno.Log） 匹配所有被@Log注解的方法。
+连接点：在Spring中使用JoinPoint抽象了连接点，用它可以获得方法执行时的相关信息。
+    对于@Around通知，获取连接点信息只能用ProceedingJoinPoint对象。
+    对于其他四种，获取连接点信息是只能用JoinPoint对象。
+    
+  
+配置的优先级（从高到低）：
+命令行参数（--xxx=xxx)>java系统属性(-Dxxx=xxx）>application.properties>application.yml
+java系统属性：-Dserver.port=8080
+命令行参数：--server.port=8080
+执行maven打包指令package
+执行java命令，运行jar包：java -Dserver.port=8080 -jar xxx.jar --server.port=8080
+
+默认情况下，Spring项目启动时，会把bean都创建好放在IOC容器中，如果想主动获取这些bean，可通过以下方式：
+1.根据name获取bean：Object getBean（String name）
+2.根据类型获取bean：<T> T getBean(Class<T> requiredType)
+3.根据bean名称和类型获取bean：<T> T getBean(String name, Class<T> requiredType)
+
+bean的作用域：
+1.singleton：单例模式，Spring容器中只会存在一个实例，Bean默认的作用域。
+2.prototype：原型模式，每次getBean时，都会创建一个新的实例。
+可以通过@Scope注解来指定bean的作用域。
+
+第三方bean：
+如果要管理bean对象来自于第三方，无法使用@Component注解，就可以使用@prototype。
+若要管理第三方bean对象，建议对这些bean进行集中分类配置，可以通过@Configuration注解声明一个配置类，然后在该类中定义bean。
+例如：
+@Configuration
+public class MyConfig {
+    @Bean
+    public SAXReader saxReader() {
+        return new SAXReader();
+    }
+}
+通过@Bean注解的name或value属性可以声明bean的名称，如果不指定默认bean的名称就是方法名。
+如果第三方bean需要依赖其他bean对象，直接在bean定义方法中设置形参即可，容器会根据类型自动装配。
+
+
+Springboot原理：
+起步依赖：maven的依赖传递
+自动配置：
+   @ComponentScan：自动扫描指定包下的@Component注解的类，并注册为bean。
+   @import导入。会被spring加载到IOC容器中。
+   @Enablexxx注解，封装@import注解
+   @conditionalOnClass（） 当前环境存在指定的这个类时，才声明该bean
+   @ConditionalOnMissingBean      但不存在当前的bean时，才声明该bean
+   @ConditionalOnProperty   配置文件中存在对应的属性和值，才注册bean到IOC容器中
+   
+
+   Maven继承：
+   继承描述两个工程之间的关系，与java的继承相似，子工程可以继承父工程的配置信息。常见于依赖关系的继承。
+   作用：简化依赖配置，统一管理依赖
+   实现：<parent> ... </parent>
+
+   jar:普通模块打包，springboot项目基本都是jar包（内嵌tomcat运行）
+   war：web模块打包，，需要部署在外部tomcat运行。
+   pom：父工程或聚合工程，该模块不写代码，仅进行依赖管理
+
+Maven版本锁定：
+在maven中可以在父工程文件中通过<dependencyManagement>来统一管理依赖版本，子工程继承父工程的依赖版本，避免版本冲突。
+自定义属性/引用属性：
+例如 <properties> <spring.version>5.1.9.RELEASE</spring.version> </properties>
+
+Maven聚合：
+将多个模块组织成一个整体，同时进行项目的构建
+聚合工程：
+一个业务的空工程，可以作为父工程，其他工程继承该工程，聚合多个模块。
+作用：快速构建项目。
+maven中可以通过<modules>设置当前聚合工程所包含的子模块名称。
+
+Maven私服：
+私服是搭建在局域网内的Maven仓库，可以作为中央仓库的镜像，提高项目构建速度。
+作用：提高项目构建速度，降低中央仓库的压力。

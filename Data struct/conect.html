@@ -1,0 +1,520 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>线性表</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.25.0/themes/prism.min.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.25.0/prism.min.js"></script>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+   <div>
+    <p>  在数据结构中，顺序表和链表是两种常见的数据存储结构。它们各自有着不同的特点和适用场景。本文将深入探讨顺序表和链表的概念、结构以及各自的优缺点。<br><br>
+
+        1. 线性表的顺序存储结构<br><br>
+        1.1顺序存储即把逻辑上相邻的元素存储在物理位置上也相邻的存储单元中，
+        元素之间的关系由存储单元的邻接关系来体现。<br><img src="pictures/24-05-11_16-10-41.png" ><br><br>
+        
+        1.2 由实现方式分为静态分配和动态分配。<br>
+        (1)静态分配：在程序运行前就分配好一定的存储空间，存储空间固定，不可改变。<br>
+        (2)动态分配:在程序运行时根据需要动态分配存储空间,存储空间可变。顺序表存满时,可再用malloc动态拓展顺序表的最大容量
+        但需要将数据元素复制到新的存储区域,并用free函数释放原区域<br><br>
+        1.3 顺序表的优缺点<br>
+        优点：顺序表的存储结构简单，可以随机访问表中的任意元素，查找效率高，适合于元素数量固定且较少变动的场景。<br>
+        缺点：顺序表的插入和删除操作需要移动大量元素，效率低，不适合于元素数量变动较大的场景。另外，顺序表的存储空间是连续的，当存储空间不足时，需要重新分配更大的存储空间，这可能导致内存碎片的产生。<br><br>
+        1.4 代码实现<br>
+            <pre><code class="language-c">
+                    #include<stdio.h>
+                    #include<stdlib.h>
+                    #define OK 1
+                    #define ERROR 0
+                    // Status是函数的类型，其值是函数结果状态代码，如OK等
+                    typedef int status;
+                    //线性表的最大长度
+                    #define MAXSIZE 20
+                    //ElemType 类型根据具体情况可改变
+                    typedef int ElemType;
+                    
+                    
+                    //静态分配
+                    typedef struct Sqlist {
+                        //数组存储数据元素，最大值为MAXSIZE
+                        ElemType data[MAXSIZE];
+                        //线性表当前长度
+                        int length;
+                    }Sqlist;
+                    //获得元素操作，用e返回L中第i个数据元素的值 
+                    status GetElem(const Sqlist* l, int i,ElemType*e)
+                    {
+                        //不在范围
+                        if (i<1 || i>l->length || l->length == 0)
+                        {
+                            return ERROR;
+                        }
+                        *e = l->data[i - 1];
+                        return OK;
+                    }
+                    //插入操作，在L中第i个位置之前插入新的数据元素e，L的长度加1
+                    status ListInsert(Sqlist* l, int i, ElemType e)
+                    {   
+                        //当i不在范围内时
+                        if (i<1 || i>l->length + 1)
+                        {
+                            return ERROR;
+                        }   
+                        // 顺序线性表已经满
+                        if (l->length == MAXSIZE)
+                        {
+                            return ERROR;
+                        }
+                        //若插入数据位置不在表尾
+                        if (i < l->length)
+                        {
+                            //将要插入位置后数据元素向后移动一位
+                            for (int k = l->length-1; k >= i - 1; k--)
+                            {
+                                l->data[k + 1] = l->data[k];
+                            }
+                        }
+                        // 将新元素插入
+                        l->data[i - 1] = e;
+                        l->length++;
+                        return OK;
+                    }
+                    status ListDelete(Sqlist* L, int i,ElemType *e)//删除操作，删除L的第i个数据元素，并用e返回其值，L的长度减1
+                    {
+                        int k;
+                        //若线性表为空
+                        if (L->length == 0)
+                            return ERROR;
+                        //若删除位置不正确
+                        if (i<1 || i>L->length)
+                            return ERROR;
+                        *e = L->data[i - 1];
+                        //若删除不是最后一位
+                        if (i < L->length)
+                        {
+                            //将删除位置后元素前移
+                            for (k = i; k < L->length; k++)
+                            {
+                                L->data[k - 1] = L->data[k];
+                            }
+                        }
+                        L->length--;
+                        return OK;
+                    }
+                    //查找元素返回下标
+                    int Listfind(const Sqlist* l, ElemType e)
+                    {
+                        for (int i = 0; i < l->length; i++)
+                        {
+                            if (l->data[i] == e)
+                            {
+                                return i;
+                            }
+                        }
+                        return -1;
+                    }
+                    
+                    //动态分配
+                    typedef struct {
+                        ElemType* data;//存放数据的数组
+                        int length;
+                        int capacity;//顺序表的容量
+                    }SeqList;
+                    
+                    //初始化
+                    status  InitSqList(int capacity,SeqList *L)
+                    {
+                        L = (SeqList*)malloc(sizeof(SeqList));//分配顺序表结构内存
+                        if (L == NULL)//内存分配失败
+                            return ERROR;
+                        L->data = (int*)malloc(capacity * sizeof(ElemType));//分配存放数据的数组内存
+                        if (L->data == NULL)//内存分配失败
+                            return ERROR;
+                        L->length = 0;
+                        L->capacity = capacity;
+                        return OK;
+                    }
+                    
+                    status Insert(SeqList* L, int i, ElemType e)
+                    {
+                        //插入位置不合法
+                        if (L == NULL || i<1 || i>L->length)
+                            return ERROR;
+                        //如果当前长度已经等于容量，需要扩容
+                        if (L->length == L->capacity)
+                        {
+                            L->data = (int*)realloc(L->data, (L->capacity * 2) * sizeof(ElemType));
+                            if (L->data == NULL)//内存分配失败
+                                return ERROR;
+                        }
+                        L->capacity *= 2;
+                        //若插入数据位置不在表尾
+                        if (i < L->length)
+                        {
+                            //将i-1后面的元素依次后移一位
+                            for (int k = L->length - 1; k >= i - 1; k--)
+                            {
+                                L->data[k + 1] = L->data[k];
+                            }
+                        }
+                        L->data[i - 1] = e;
+                        L->length--;
+                        return OK;
+                    }
+                    status Delete(SeqList* L, int i, ElemType* e)
+                    {
+                        int k;
+                        //若线性表为空
+                        if (L->length == 0)
+                            return ERROR;
+                        //若删除位置不正确
+                        if (i<1 || i>L->length)
+                            return ERROR;
+                        *e = L->data[i - 1];
+                        //若删除不是最后一位
+                        if (i < L->length)
+                        {
+                            //将删除位置后元素前移
+                            for (k = i; k < L->length; k++)
+                            {
+                                L->data[k - 1] = L->data[k];
+                            }
+                        }
+                        L->length--;
+                        return OK;
+                    }
+                    //释放顺序表内存
+                    status FreeList(SeqList* L)
+                    {
+                        if (L == NULL)
+                            return ERROR;
+                        free(L->data);
+                        L->data = NULL;
+                        free(L);
+                        L = NULL;
+                        return OK;
+                    }
+            </code></pre>
+        2. 链表<br>
+        链表是一种物理存储结构上非连续、非顺序的存储结构，数据元素的逻辑顺序是通过链表中的指针链接次序实现的。<br>
+        
+        2.1 单链表<br>
+        单链表中的每个节点包含一个数据域和一个指向下一个节点的指针。查找元素需要遍历链表,时间复杂度为O(n)。删除和插入元素需要调整指针,插入需要动态分配内存,时间复杂度为O(1)。<br>
+        <img src="pictures/24-05-11_21-48-07.png" ><br> 
+        (1)节点：单链表的基本单位是节点（Node）。节点包含两部分信息：数据和指针。数据部分存储着节点的内容，指针部分指向下一个节点。<br>
+        (2)头节点：头节点是单链表的第一个节点，通常不存储数据，只是用来标识链表的起始位置。在一些实现中，头节点也可以包含一些其他信息，比如链表的长度。
+        (3)尾节点：尾节点是单链表的最后一个节点，它的指针指向空地址NULL，表示链表的结束。<br><br>
+        (4)优点：插入和删除操作的时间复杂度为常数时间，不受链表长度影响。<br>
+        空间利用率高，可以动态调整存储空间。<br><br>
+        （5）缺点：随机访问元素的性能较差，需要遍历链表才能找到目标元素，时间复杂度为 O(n)。<br>
+        每个节点需要额外的指针空间，占用更多的内存。<br><br>
+        
+        代码实现如下：<br>
+        <pre><code class="language-c" >
+                #include<stdio.h>
+                #include<stdlib.h>
+                #define  ElemType int 
+                #define OK 1
+                #define ERROR 0
+                #define status int
+                //单链表存储结构
+                typedef struct Node
+                {
+                    ElemType data;
+                    struct Node* next;
+                }Node;
+                typedef struct Node* LinkList;
+                //获取第i个元素,用e返回L中第i个数据元素的值
+                status GetElem(LinkList n, int i, ElemType* e)
+                {
+                    if (n == NULL)
+                        return ERROR;
+                    Node* p;
+                    p = n->next;
+                    //j为计数器
+                    int j = 1;
+                    //p不为空且计数器还没有等于i是循环继续
+                    while (p && j < i)
+                    {
+                        p = p->next;
+                        j++;
+                    }
+                    if (!p ||j>i)
+                        //第i节点不存在
+                        return ERROR;
+                    *e = p->data;
+                    return OK;
+                }
+                //插入，在L中第i个结点位置之前插入新的数据元素e，L的长度加1
+                status ListInsert(LinkList* n, int i, ElemType e)
+                {
+                    int j = 1;
+                    LinkList p,s;
+                    p = *n;
+                    //寻找第i-1个节点
+                    while (p && j < i)
+                    {
+                        p = p->next;
+                        j++;
+                    }
+                    //第i节点不存在
+                    if (!p || j > i)
+                        return ERROR;
+                    //生成新节点
+                    s = (LinkList)malloc(sizeof(Node));
+                    s->data = e;
+                    s->next = p->next;
+                    p->next = s;
+                    return OK;
+                }
+                
+                
+                //：删除L的第i个结点，并用e返回其值，L的长度减1
+                status ListDelete(LinkList *n, int i, ElemType* e)
+                {
+                    LinkList p, q;
+                    p = *n;
+                    int j = 1;
+                    while (p->next&& j < i)
+                    {
+                        j++;
+                        p=p->next;
+                
+                    }
+                    if (!(p->next) || j > i)
+                        return ERROR;
+                    q = p->next;
+                    p->next = q->next;
+                    *e = q->data;
+                    //释放内存
+                    free(q);
+                    return OK;
+                }
+                /*初始化n个元素，建立带表头结点的单链线性表L（头插法） */
+                void CreateListHead(LinkList* l, int n)
+                {
+                    LinkList p;
+                    int i = 0;
+                    *l = (Node*)malloc(sizeof(Node));
+                    (*l)->next = NULL;
+                    for (; i < n; i++)
+                    {
+                        p = (Node*)malloc(sizeof(Node));
+                        p->data = 0;
+                        p->next = (*l)->next;
+                        (*l)->next = p;
+                    }
+                }
+                //给第i个元素赋值e
+                status Assignment(LinkList l, int i, ElemType e)
+                {
+                    LinkList p;
+                    int k = 1;
+                    while (p->next && k < i)
+                    {
+                        p = p->next;
+                        k++;
+                    }
+                    if (!p || k <i)
+                    {
+                        return ERROR;
+                    }
+                    p->data = e;
+                    return OK;
+                }
+                void CreateListTail(LinkList* l, int n)/* 初始化n个元素，建立带表头结点的单链线性表L（尾插法） */
+                {
+                    LinkList p, s;
+                    int i = 0;
+                    *l = (Node*)malloc(sizeof(Node));
+                    s= *l;
+                    for (; i < n; i++)
+                    {
+                        p = (Node*)malloc(sizeof(Node));
+                        p->data = 0;
+                        s->next = p;
+                        s = p;
+                    }
+                    s->next = NULL;
+                }
+                //单链表的整表删除
+                status ClearList(LinkList* l)
+                {
+                    LinkList p, q;
+                    p = (*l)->next;
+                    //没到末尾
+                    while (p)
+                    {
+                        q = p->next;
+                        free(p);
+                        p = q;
+                    }
+                    (*l)->next = NULL;
+                    return OK;
+                }
+                
+        </code></pre>
+
+        2.2 双向链表<br>
+        双向链表是一种数据结构，由一系列节点组成，每个节点都包含两个指针，
+        分别指向前一个节点和后一个节点。这种双向连接使得我们可以从任一端开始遍历链表，
+        也可以在常量时间内执行前向或后向的节点访问、插入和删除操作。<br>
+        (1)双向链表的基本结构由节点组成，每个节点通常包含以下两个部分：<br>
+        .数据域：用于存储节点的数据。<br>
+        .前向指针（prev）和后向指针（next）：分别指向前一个节点和后一个节点。<br>
+        <img src="pictures\24-05-12_20-51-59.png"><br>
+        (2)双向链表的优点：<br>
+        .双向链表可以从任意一个节点开始，向前或向后遍历。<br>
+        .双向链表可以在常量时间内添加或删除节点，而无需像单链表那样，需要花费O(n)的时间来遍历链表。<br>
+        .双向链表可以在常量时间内删除指定节点，而无需像单链表那样，需要花费O(n)的时间来遍历链表。<br>
+        .双向链表可以在常量时间内找到指定节点的前驱节点或后继节点。<br>
+        (3)双向链表缺点：双向链表的每个节点都需要额外的空间来存储前驱节点的地址，因此，
+        它需要更多的内存来存储同样数量的元素。<br>
+        代码实现如下：<br>
+        <pre><code class="language-c">
+                #include<stdio.h>
+                #include<stdlib.h>
+                #define ElemType int
+                #define status int
+                #define OK 1
+                #define ERROR 0
+                //双向链表存储结构
+                typedef struct DulNode {
+                    ElemType data;
+                    //后继指针
+                    struct DulNode* next;
+                    //前驱指针
+                    struct DulNode* prior;
+                }DoulNode,*DuLinklist;
+                //获取双链表的长度
+                int GetLength(DuLinklist l)
+                {
+                    DuLinklist p;
+                    p = l->next;
+                    int count = 1;
+                    while (l != p)
+                    {
+                        p = p->next;
+                        count++;
+                    }
+                    return count;
+                }
+                //获取第i个元素
+                status GetEle(DuLinklist l,int i,ElemType* e)
+                {
+                    DuLinklist p;
+                    p = l->next;
+                    int j = 1;
+                    while (p!=l&&j<i)
+                    {
+                        p =p->next;
+                        j++;
+                    }
+                    if (j < i)
+                        return ERROR;
+                    *e = p->data;
+                    return OK;
+                }
+                //初始化双链表
+                status InitList(DuLinklist* l)
+                {
+                    if ((*l))
+                    {
+                        return ERROR;
+                    }
+                    *l = (DuLinklist)malloc(sizeof(DulNode));
+                    (*l)->next = *l;
+                    (*l)->prior = *l;
+                    return OK;
+                }
+                status ListInsert(DuLinklist* l, int i, ElemType e) //在第i个位置插入e
+                {
+                    int j = 1;
+                    DuLinklist p,s;
+                    p = *l;
+                    while (p!=*l&&j < i)
+                    {
+                        p = p->next;
+                        j++;
+                    }
+                    if (j < i)
+                        return ERROR;
+                    s = (DuLinklist)malloc(sizeof(DoulNode));
+                    s->data = e;
+                    //把p->next赋值给s的后继
+                    s->next = p->next;
+                    //把p赋值给s的前驱
+                    s->prior = p;
+                    //把s赋值给p->next的前驱
+                    p->next->prior = s;
+                    // 把s赋值给p的后继
+                    p->next = s;
+                    return OK;
+                }
+                //删除第i个节点
+                status ListDelete(DuLinklist* l, int i, ElemType* e)                         
+                {
+                    DuLinklist p, q;
+                    p = *l;
+                    int j = 1;
+                    while (p!=*l&&j < i)
+                    {
+                        j++;
+                        p = p->next;
+                    }
+                    if (j < i)
+                        return ERROR;
+                    q = p->next;
+                    p->next = q->next;
+                    q->next->prior = p;
+                    free(q);
+                    q = NULL;
+                    return OK;
+                }
+                status Assignment(DuLinklist* l, int i, ElemType e)//给第i个节点赋值为e
+                {
+                    DuLinklist p;
+                    int k = 1;
+                    p = (*l)->next;
+                    while (p != *l&&k<i)
+                    {
+                        p = p->next;
+                        k++;
+                    }
+                    if (k < i)
+                    {
+                        return ERROR;
+                    }
+                    p->data = e;
+                    return OK;
+                }
+                status ClearList(DuLinklist* l)//删除整个双向表
+                {
+                    DuLinklist p, q;
+                    p = (*l)->next;
+                    while (p!=*l)
+                    {
+                        q = p->next;
+                        free(p);
+                        p = q;
+                    }
+                    *l = NULL;
+                    return OK;
+                }
+                
+        </code></pre>
+<br><br>
+
+        <h1>总结:</h1><br>
+        (1)顺序表适用于需要频繁随机访问元素的情况，因为它可以在常数时间内访问任何位置的元素。<br>
+           适用于静态数据集，即元素数量相对固定，不经常进行插入和删除操作的情况。<br><br>
+        (2)单链表适用于需要频繁插入和删除元素，但不需要频繁随机访问元素的情况。<br>
+        适用于动态数据集，即元素数量经常变化，但不需要像顺序表一样频繁地进行扩容和缩容操作的情况。<br><br>
+        (3)双向链表适用于需要在常数时间内进行前向和后向遍历的情况。<br>
+        适用于需要频繁在链表中间插入和删除节点的情况。<br><br><br><br>
+        </p>
+    </div>
+</body>
+</html>
